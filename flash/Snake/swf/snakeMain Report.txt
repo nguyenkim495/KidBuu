@@ -5,25 +5,32 @@ Metadata
 --------
 Bytes         Value
 ----------    -----
-       874    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"> <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/"> <xmp:CreatorTool>Adobe Flash Professional CS6 - build 481</xmp:CreatorTool> <xmp:CreateDate>2016-05-31T22:31:31+07:00</xmp:CreateDate> <xmp:MetadataDate>2016-06-01T00:04:46+07:00</xmp:MetadataDate> <xmp:ModifyDate>2016-06-01T00:04:46+07:00</xmp:ModifyDate> </rdf:Description> <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"> <dc:format>application/x-shockwave-flash</dc:format> </rdf:Description> <rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"> <xmpMM:InstanceID>xmp.iid:78A7FE425127E611BB37A245F6CCE066</xmpMM:InstanceID> <xmpMM:DocumentID>xmp.did:78A7FE425127E611BB37A245F6CCE066</xmpMM:DocumentID> <xmpMM:OriginalDocumentID>xmp.did:008726D74427E611BB37A245F6CCE066</xmpMM:OriginalDocumentID> <xmpMM:DerivedFrom rdf:parseType="Resource"> <stRef:instanceID>xmp.iid:008726D74427E611BB37A245F6CCE066</stRef:instanceID> <stRef:documentID>xmp.did:008726D74427E611BB37A245F6CCE066</stRef:documentID> <stRef:originalDocumentID>xmp.did:008726D74427E611BB37A245F6CCE066</stRef:originalDocumentID> </xmpMM:DerivedFrom> </rdf:Description> </rdf:RDF> 
+       770    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"> <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/"> <xmp:CreatorTool>Adobe Flash Professional CS6 - build 481</xmp:CreatorTool> <xmp:CreateDate>2016-05-31T22:31:31+07:00</xmp:CreateDate> <xmp:MetadataDate>2016-06-01T23:55:30+07:00</xmp:MetadataDate> <xmp:ModifyDate>2016-06-01T23:55:30+07:00</xmp:ModifyDate> </rdf:Description> <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"> <dc:format>application/x-shockwave-flash</dc:format> </rdf:Description> <rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"> <xmpMM:InstanceID>xmp.iid:015BD1781828E6119637D2C8C832647E</xmpMM:InstanceID> <xmpMM:DocumentID>xmp.did:015BD1781828E6119637D2C8C832647E</xmpMM:DocumentID> <xmpMM:OriginalDocumentID>xmp.did:008726D74427E611BB37A245F6CCE066</xmpMM:OriginalDocumentID> <xmpMM:DerivedFrom rdf:parseType="Resource"> <stRef:instanceID>xmp.iid:639363241128E6119637D2C8C832647E</stRef:instanceID> <stRef:documentID>xmp.did:008726D74427E611BB37A245F6CCE066</stRef:documentID> <stRef:originalDocumentID>xmp.did:008726D74427E611BB37A245F6CCE066</stRef:originalDocumentID> </xmpMM:DerivedFrom> </rdf:Description> </rdf:RDF> 
 
 Frame #    Frame Bytes    Total Bytes    Scene
 -------    -----------    -----------    -----
-      1           2094           2094    Scene 1 (AS 3.0 Classes Export Frame)
+      1           3971           3971    Scene 1 (AS 3.0 Classes Export Frame)
 
 Scene      Shape Bytes    Text Bytes    ActionScript Bytes
 -------    -----------    ----------    ------------------
-Scene 1              0            40                     0
+Scene 1              0            36                  2035
 
 Symbol    Shape Bytes    Text Bytes    ActionScript Bytes
 ------    -----------    ----------    ------------------
-points              0            26                     0
-Food               32             0                     0
-Snake              34             0                     0
+Food               28             0                     0
+points              0            24                     0
+Snake              30             0                     0
 
 Font Name            Bytes         Characters
 -----------------    ----------    ----------
-Verdana-Bold Bold           983    0:Pinost
+Verdana-Bold Bold           929    :Pehilnost
+
+ActionScript Bytes    Location
+------------------    --------
+              1033    Scene 1:Frame 1:Main
+               289    Scene 1:Frame 1:Food
+               280    Scene 1:Frame 1:Snake
+               433    Scene 1:Frame 1:points
 
 
 
