@@ -19,7 +19,7 @@
 			
 			//trace(Points.text);
 			
-			ScoreValue(10);
+			//ScoreValue(10);
 		}
 		
 		public function set ScoreValue($score:int):void
