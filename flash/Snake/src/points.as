@@ -2,32 +2,41 @@
 	
 	import flash.display.MovieClip;
 	import flash.text.*;
+	import flash.geom.Point;
+
 	//import flash.geom.Point;
 	
 	
-	public class points extends MovieClip {
+	public class Points extends MovieClip {
 		
 		//public var textLabel:TextField;
-		public var scoreValue:int = 10;
+		//public var scoreValue:int = 10;
 		//public var Points:TextField;
 		
-		public function points() {
+		public function Points() {
 			// constructor code
 			//Points = new TextField();
-			addChild(Points);
-			Points.text = String(scoreValue);
+			//addChild(Points);
+			//Points.text = String(scoreValue);
 			
 			//trace(Points.text);
 			
 			//ScoreValue(10);
+			
+			if(score != null)
+			{
+				score.wordWrap = true;
+				//align = TextWithStyle.LEFT;
+				score.text = "1234";
+			}
 		}
 		
-		public function set ScoreValue($score:int):void
+		public function set setScore($s:int):void
 		{
-			scoreValue = $score;
-			Points.text = String(scoreValue);
+			//scoreValue = $score;
+			score.text = String($s);
 			
-			trace("call me: Points.length: " + Points.length + " " + Points.text);
+			//trace("call me: Points.length: " + score.length + " " + score.text);
 			
 		}
 	}

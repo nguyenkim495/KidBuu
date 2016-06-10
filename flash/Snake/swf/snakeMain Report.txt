@@ -3,28 +3,30 @@
 
 Frame #    Frame Bytes    Total Bytes    Scene
 -------    -----------    -----------    -----
-      1           4369           4369    Scene 1 (AS 3.0 Classes Export Frame)
+      1           5831           5831    Scene 1 (AS 3.0 Classes Export Frame)
 
 Scene      Shape Bytes    Text Bytes    ActionScript Bytes
 -------    -----------    ----------    ------------------
-Scene 1              0            37                  3217
+Scene 1             28            37                  4522
 
 Symbol    Shape Bytes    Text Bytes    ActionScript Bytes
 ------    -----------    ----------    ------------------
-Food               29             0                     0
-points              0            24                     0
-Snake              31             0                     0
+Button             34            24                     0
+Food               28             0                     0
+points              0            22                     0
+Snake              30             0                     0
 
 Font Name            Bytes         Characters
 -----------------    ----------    ----------
-Verdana-Bold Bold           892    0:Pinost
+Verdana-Bold Bold           922    0:Pailnosty
 
 ActionScript Bytes    Location
 ------------------    --------
-              1996    Scene 1:Frame 1:Main
-               350    Scene 1:Frame 1:Food
-               341    Scene 1:Frame 1:Snake
-               530    Scene 1:Frame 1:points
+              2657    Scene 1:Frame 1:Main
+               619    Scene 1:Frame 1:Button
+               383    Scene 1:Frame 1:Food
+               490    Scene 1:Frame 1:Points
+               373    Scene 1:Frame 1:Snake
 
 
 
