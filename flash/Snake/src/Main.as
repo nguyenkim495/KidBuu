@@ -13,7 +13,7 @@
 		public var snake:Array;
 		public var food:Food;
 		public var _points:Points;
-		public var button:Button;
+		public var button:GameButton;
 		
 		public var direct:int; //-1 = reset,0 = up, 1 = right, 2 = down, 3 = left
 		
@@ -23,6 +23,7 @@
 		public var speed:int = 5;
 		public var score:int = 0;
 		
+		public static var LINE_WIDTH:int = 10;
 		public static var screenWidth:int = 480;
 		public static var screenHeight:int = 800;
 		
@@ -54,7 +55,7 @@
 			removeEventListener( Event.ADDED_TO_STAGE, init );
 			
 			
-			button = new Button();
+			button = new GameButton();
 			button.x = Math.round(screenWidth/2);
 			button.y = Math.round(screenHeight/2);
 			//
@@ -153,7 +154,7 @@
 						updateNewDirect();
 				}else
 				{
-					button.labelTextButton.text = Button.RE_PLAY;
+					button.setText = "Replay";
 					button.enabled = true;
 					button.visible = true;
 				}
