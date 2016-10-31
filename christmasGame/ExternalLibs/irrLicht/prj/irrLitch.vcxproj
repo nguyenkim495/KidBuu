@@ -92,16 +92,12 @@
     <ClCompile Include="..\src\bzip2\blocksort.c" />
     <ClCompile Include="..\src\bzip2\bzcompress.c" />
     <ClCompile Include="..\src\bzip2\bzip2.c" />
-    <ClCompile Include="..\src\bzip2\bzip2recover.c" />
     <ClCompile Include="..\src\bzip2\bzlib.c" />
     <ClCompile Include="..\src\bzip2\crctable.c" />
     <ClCompile Include="..\src\bzip2\decompress.c" />
     <ClCompile Include="..\src\bzip2\dlltest.c" />
     <ClCompile Include="..\src\bzip2\huffman.c" />
-    <ClCompile Include="..\src\bzip2\mk251.c" />
     <ClCompile Include="..\src\bzip2\randtable.c" />
-    <ClCompile Include="..\src\bzip2\spewG.c" />
-    <ClCompile Include="..\src\bzip2\unzcrash.c" />
     <ClCompile Include="..\src\irrLicht\gui\CDefaultGUIElementFactory.cpp" />
     <ClCompile Include="..\src\irrLicht\gui\CGUIButton.cpp" />
     <ClCompile Include="..\src\irrLicht\gui\CGUICheckBox.cpp" />
@@ -322,12 +318,7 @@
     <ClCompile Include="..\src\irrLicht\video\Software\CTRTextureGouraudAlphaNoZ.cpp" />
     <ClCompile Include="..\src\irrLicht\video\Software\CTRTextureGouraudWire.cpp" />
     <ClCompile Include="..\src\irrLicht\video\Software\CZBuffer.cpp" />
-    <ClCompile Include="..\src\jpeglib\ansi2knr.c" />
     <ClCompile Include="..\src\jpeglib\cdjpeg.c" />
-    <ClCompile Include="..\src\jpeglib\cjpeg.c" />
-    <ClCompile Include="..\src\jpeglib\ckconfig.c" />
-    <ClCompile Include="..\src\jpeglib\djpeg.c" />
-    <ClCompile Include="..\src\jpeglib\example.c" />
     <ClCompile Include="..\src\jpeglib\jaricom.c" />
     <ClCompile Include="..\src\jpeglib\jcapimin.c" />
     <ClCompile Include="..\src\jpeglib\jcapistd.c" />
@@ -369,20 +360,14 @@
     <ClCompile Include="..\src\jpeglib\jidctflt.c" />
     <ClCompile Include="..\src\jpeglib\jidctfst.c" />
     <ClCompile Include="..\src\jpeglib\jidctint.c" />
-    <ClCompile Include="..\src\jpeglib\jmemansi.c" />
-    <ClCompile Include="..\src\jpeglib\jmemdos.c" />
-    <ClCompile Include="..\src\jpeglib\jmemmac.c" />
     <ClCompile Include="..\src\jpeglib\jmemmgr.c" />
     <ClCompile Include="..\src\jpeglib\jmemname.c" />
-    <ClCompile Include="..\src\jpeglib\jmemnobs.c" />
-    <ClCompile Include="..\src\jpeglib\jpegtran.c" />
     <ClCompile Include="..\src\jpeglib\jquant1.c" />
     <ClCompile Include="..\src\jpeglib\jquant2.c" />
     <ClCompile Include="..\src\jpeglib\jutils.c" />
     <ClCompile Include="..\src\jpeglib\rdbmp.c" />
     <ClCompile Include="..\src\jpeglib\rdcolmap.c" />
     <ClCompile Include="..\src\jpeglib\rdgif.c" />
-    <ClCompile Include="..\src\jpeglib\rdjpgcom.c" />
     <ClCompile Include="..\src\jpeglib\rdppm.c" />
     <ClCompile Include="..\src\jpeglib\rdrle.c" />
     <ClCompile Include="..\src\jpeglib\rdswitch.c" />
@@ -390,11 +375,9 @@
     <ClCompile Include="..\src\jpeglib\transupp.c" />
     <ClCompile Include="..\src\jpeglib\wrbmp.c" />
     <ClCompile Include="..\src\jpeglib\wrgif.c" />
-    <ClCompile Include="..\src\jpeglib\wrjpgcom.c" />
     <ClCompile Include="..\src\jpeglib\wrppm.c" />
     <ClCompile Include="..\src\jpeglib\wrrle.c" />
     <ClCompile Include="..\src\jpeglib\wrtarga.c" />
-    <ClCompile Include="..\src\libpng\example.c" />
     <ClCompile Include="..\src\libpng\png.c" />
     <ClCompile Include="..\src\libpng\pngerror.c" />
     <ClCompile Include="..\src\libpng\pngget.c" />
@@ -405,7 +388,6 @@
     <ClCompile Include="..\src\libpng\pngrtran.c" />
     <ClCompile Include="..\src\libpng\pngrutil.c" />
     <ClCompile Include="..\src\libpng\pngset.c" />
-    <ClCompile Include="..\src\libpng\pngtest.c" />
     <ClCompile Include="..\src\libpng\pngtrans.c" />
     <ClCompile Include="..\src\libpng\pngwio.c" />
     <ClCompile Include="..\src\libpng\pngwrite.c" />
@@ -838,9 +820,6 @@
     <ClInclude Include="..\src\zlib\zconf.h" />
     <ClInclude Include="..\src\zlib\zlib.h" />
     <ClInclude Include="..\src\zlib\zutil.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\src\jpeglib\jmemdosa.asm" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\src\aesGladman\Readme.txt" />

@@ -1,123 +1,122 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="include">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\ikpMP3">
+    <Filter Include="src\ikpMP3">
       <UniqueIdentifier>{d9b5692d-ee4a-4d9f-ad16-6a09e3421cfb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ikpMP3\decoder">
+    <Filter Include="src\ikpMP3\decoder">
       <UniqueIdentifier>{a6c64da8-3bd6-460a-ac60-920fef0f469c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\ik_ESoundEngineOptions.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_ESoundOutputDrivers.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_EStreamModes.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_IAudioRecorder.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_IAudioStream.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_IAudioStreamLoader.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_IFileFactory.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_IFileReader.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_IRefCounted.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_irrKlangTypes.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_ISound.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_ISoundDeviceList.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_ISoundEffectControl.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_ISoundEngine.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_ISoundMixedOutputReceiver.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_ISoundSource.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_ISoundStopEventReceiver.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_IVirtualRefCounted.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_SAudioStreamFormat.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ik_vec3d.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\irrKlang.h">
-      <Filter>Header Files</Filter>
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\plugins\ikpMP3\CIrrKlangAudioStreamLoaderMP3.h">
-      <Filter>Source Files\ikpMP3</Filter>
+      <Filter>src\ikpMP3</Filter>
     </ClInclude>
     <ClInclude Include="..\plugins\ikpMP3\CIrrKlangAudioStreamMP3.h">
-      <Filter>Source Files\ikpMP3</Filter>
+      <Filter>src\ikpMP3</Filter>
     </ClInclude>
     <ClInclude Include="..\plugins\ikpMP3\decoder\internal.h">
-      <Filter>Source Files\ikpMP3\decoder</Filter>
+      <Filter>src\ikpMP3\decoder</Filter>
     </ClInclude>
     <ClInclude Include="..\plugins\ikpMP3\decoder\mpaudec.h">
-      <Filter>Source Files\ikpMP3\decoder</Filter>
+      <Filter>src\ikpMP3\decoder</Filter>
     </ClInclude>
     <ClInclude Include="..\plugins\ikpMP3\decoder\mpaudectab.h">
-      <Filter>Source Files\ikpMP3\decoder</Filter>
+      <Filter>src\ikpMP3\decoder</Filter>
     </ClInclude>
     <ClInclude Include="..\plugins\ikpMP3\decoder\mpegaudio.h">
-      <Filter>Source Files\ikpMP3\decoder</Filter>
+      <Filter>src\ikpMP3\decoder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\plugins\ikpMP3\CIrrKlangAudioStreamLoaderMP3.cpp">
-      <Filter>Source Files\ikpMP3</Filter>
+      <Filter>src\ikpMP3</Filter>
     </ClCompile>
     <ClCompile Include="..\plugins\ikpMP3\CIrrKlangAudioStreamMP3.cpp">
-      <Filter>Source Files\ikpMP3</Filter>
+      <Filter>src\ikpMP3</Filter>
     </ClCompile>
     <ClCompile Include="..\plugins\ikpMP3\ikpMP3.cpp">
-      <Filter>Source Files\ikpMP3</Filter>
+      <Filter>src\ikpMP3</Filter>
     </ClCompile>
     <ClCompile Include="..\plugins\ikpMP3\decoder\bits.c">
-      <Filter>Source Files\ikpMP3\decoder</Filter>
+      <Filter>src\ikpMP3\decoder</Filter>
     </ClCompile>
     <ClCompile Include="..\plugins\ikpMP3\decoder\mpaudec.c">
-      <Filter>Source Files\ikpMP3\decoder</Filter>
+      <Filter>src\ikpMP3\decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloWorld.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
