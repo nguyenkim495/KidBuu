@@ -17,7 +17,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -54,7 +54,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\src;$(SolutionDir)..\src\irrLicht;$(SolutionDir)..\src\irrLicht\irr;$(SolutionDir)..\src\irrLicht\irr\device;$(SolutionDir)..\src\irrLicht\gui;$(SolutionDir)..\src\irrLicht\io;$(SolutionDir)..\src\irrLicht\scene;$(SolutionDir)..\src\irrLicht\scene\particleSystem;$(SolutionDir)..\src\irrLicht\scene\writers;$(SolutionDir)..\src\irrLicht\scene\sceneNodes;$(SolutionDir)..\src\irrLicht\scene\loaders;$(SolutionDir)..\src\irrLicht\scene\collision;$(SolutionDir)..\src\irrLicht\scene\animators;$(SolutionDir)..\src\irrLicht\video;$(SolutionDir)..\src\irrLicht\video\Null\Writer;$(SolutionDir)..\src\irrLicht\video\Null\Loader;$(SolutionDir)..\src\irrLicht\video\Null;$(SolutionDir)..\src\irrLicht\video\Direct3D9;$(SolutionDir)..\src\irrLicht\video\Direct3D8;$(SolutionDir)..\src\irrLicht\video\BurningVideo;$(SolutionDir)..\src\irrLicht\video\Software;$(SolutionDir)..\src\irrLicht\video\OpenGL;$(SolutionDir)..\src\zlib;$(SolutionDir)..\src\lzma;$(SolutionDir)..\src\libpng;$(SolutionDir)..\src\jpeglib;$(SolutionDir)..\src\bzip2;$(SolutionDir)..\src\aesGladman;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\include;$(ProjectDir)..\src;$(ProjectDir)..\src\irrLicht;$(ProjectDir)..\src\irrLicht\irr;$(ProjectDir)..\src\irrLicht\irr\device;$(ProjectDir)..\src\irrLicht\gui;$(ProjectDir)..\src\irrLicht\io;$(ProjectDir)..\src\irrLicht\scene;$(ProjectDir)..\src\irrLicht\scene\particleSystem;$(ProjectDir)..\src\irrLicht\scene\writers;$(ProjectDir)..\src\irrLicht\scene\sceneNodes;$(ProjectDir)..\src\irrLicht\scene\loaders;$(ProjectDir)..\src\irrLicht\scene\collision;$(ProjectDir)..\src\irrLicht\scene\animators;$(ProjectDir)..\src\irrLicht\video;$(ProjectDir)..\src\irrLicht\video\Null\Writer;$(ProjectDir)..\src\irrLicht\video\Null\Loader;$(ProjectDir)..\src\irrLicht\video\Null;$(ProjectDir)..\src\irrLicht\video\Direct3D9;$(ProjectDir)..\src\irrLicht\video\Direct3D8;$(ProjectDir)..\src\irrLicht\video\BurningVideo;$(ProjectDir)..\src\irrLicht\video\Software;$(ProjectDir)..\src\irrLicht\video\OpenGL;$(ProjectDir)..\src\zlib;$(ProjectDir)..\src\lzma;$(ProjectDir)..\src\libpng;$(ProjectDir)..\src\jpeglib;$(ProjectDir)..\src\bzip2;$(ProjectDir)..\src\aesGladman;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -409,7 +409,6 @@
     <ClCompile Include="..\src\zlib\trees.c" />
     <ClCompile Include="..\src\zlib\uncompr.c" />
     <ClCompile Include="..\src\zlib\zutil.c" />
-    <ClCompile Include="HelloWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\aabbox3d.h" />

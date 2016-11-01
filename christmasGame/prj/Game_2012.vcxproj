@@ -11,10 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{04C80C26-86A3-4FEE-8F9B-E867D00E492C}</ProjectGuid>
+    <ProjectGuid>{2DB6533A-5232-4519-9EBE-B30083556073}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Game_2012</RootNamespace>
-    <ProjectName>Game</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -53,10 +52,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\ExternalLibs\Box2D\include;$(ProjectDir)..\ExternalLibs\Box2D\src;$(ProjectDir)..\ExternalLibs\irrKlang\include;$(ProjectDir)..\ExternalLibs\irrLicht\include;$(ProjectDir)..\ExternalLibs\irrLicht\src;$(ProjectDir)..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ExternalLibs\irrKlang\staticLib\Win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -77,6 +78,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\HelloWorld.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExternalLibs\Box2D\prj\Box2D_2012.vcxproj">
+      <Project>{ba685cea-f43a-404f-b2f9-a3c016ab1953}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ExternalLibs\irrKlang\prj\irrKlang_2012.vcxproj">
+      <Project>{aef470e3-48c5-4c38-938f-07ba2fde9512}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ExternalLibs\irrLicht\prj\irrLitch.vcxproj">
+      <Project>{3fd1f88c-5e66-4209-804f-374c9354c128}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

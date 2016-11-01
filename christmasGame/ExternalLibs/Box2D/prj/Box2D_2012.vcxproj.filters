@@ -313,8 +313,5 @@
     <ClCompile Include="..\src\Rope\b2Rope.cpp">
       <Filter>src\Rope</Filter>
     </ClCompile>
-    <ClCompile Include="HelloWorld.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

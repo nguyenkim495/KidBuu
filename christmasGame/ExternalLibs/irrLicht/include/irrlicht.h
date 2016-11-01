@@ -321,7 +321,8 @@ namespace irr
 	\return Returns pointer to the created IrrlichtDevice or null if the
 	device could not be created.
 	*/
-	extern "C" IRRLICHT_API IrrlichtDevice* IRRCALLCONV createDevice(
+	//extern "C" IRRLICHT_API IrrlichtDevice* IRRCALLCONV createDevice(
+	extern "C" IrrlichtDevice* IRRCALLCONV createDevice(
 		video::E_DRIVER_TYPE deviceType = video::EDT_SOFTWARE,
 		// parantheses are necessary for some compilers
 		const core::dimension2d<u32>& windowSize = (core::dimension2d<u32>(640,480)),

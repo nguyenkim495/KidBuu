@@ -230,9 +230,6 @@
     <ClCompile Include="..\src\aesGladman\sha2.cpp">
       <Filter>src\aesGladman</Filter>
     </ClCompile>
-    <ClCompile Include="HelloWorld.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\irrLicht\io\CAttributes.cpp">
       <Filter>src\irrLicht\io</Filter>
     </ClCompile>

@@ -115,8 +115,5 @@
     <ClCompile Include="..\plugins\ikpMP3\decoder\mpaudec.c">
       <Filter>src\ikpMP3\decoder</Filter>
     </ClCompile>
-    <ClCompile Include="HelloWorld.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
