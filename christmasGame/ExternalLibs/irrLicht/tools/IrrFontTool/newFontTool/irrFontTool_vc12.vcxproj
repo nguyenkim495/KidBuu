@@ -39,7 +39,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>Windows7.1SDK</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -68,7 +68,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\Win32-VisualStudio\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\bin\Win32-VisualStudio\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\bin\Win64-VisualStudio\</OutDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
@@ -104,8 +104,8 @@
     </ClCompile>
     <Link>
       <AdditionalOptions> kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glu32.lib opengl32.lib gdi32.lib %(AdditionalOptions)</AdditionalOptions>
-      <OutputFile>../../../bin/Win32-visualstudio/FontTool.exe</OutputFile>
-      <AdditionalLibraryDirectories>../../../lib/Win32-visualstudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>../../bin/Win32-visualstudio/FontTool.exe</OutputFile>
+      <AdditionalLibraryDirectories>../../bin/Win32-visualstudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <DataExecutionPrevention>
@@ -194,12 +194,6 @@
   <ItemGroup>
     <ClInclude Include="CFontTool.h" />
     <ClInclude Include="CVectorFontTool.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\source\Irrlicht\Irrlicht10.0.vcxproj">
-      <Project>{e08e042a-6c45-411b-92be-3cc31331019f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
