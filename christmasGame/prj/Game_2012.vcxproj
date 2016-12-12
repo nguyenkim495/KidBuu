@@ -41,6 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\build\Win32</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -79,6 +80,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\HelloWorld.cpp" />
+    <ClCompile Include="..\src\Sound\Sound.cpp" />
+    <ClCompile Include="..\src\Sound\SoundManager.cpp" />
+    <ClCompile Include="..\src\Sprite\SimpleSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExternalLibs\Box2D\prj\Box2D_2012.vcxproj">
@@ -90,6 +94,11 @@
     <ProjectReference Include="..\ExternalLibs\irrLicht\prj\irrLitch.vcxproj">
       <Project>{3fd1f88c-5e66-4209-804f-374c9354c128}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Sound\Sound.h" />
+    <ClInclude Include="..\src\Sound\SoundManager.h" />
+    <ClInclude Include="..\src\Sprite\SimpleSprite.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

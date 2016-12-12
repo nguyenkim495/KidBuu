@@ -1,15 +1,19 @@
-﻿Build started 2016-11-01 5:19:06 PM.
-     1>Project "D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Game_2012.vcxproj" on node 2 (Build target(s)).
+﻿Build started 12/12/2016 11:25:31 AM.
+     1>Project "E:\Projects\KidBuu\trunk\christmasGame\prj\Game_2012.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(346,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\Box2D\include /ID:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\Box2D\src /ID:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\irrKlang\include /ID:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\irrLicht\include /ID:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\irrLicht\src /ID:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\..\src /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\HelloWorld.cpp
-         HelloWorld.cpp
-     1>d:\hung.nguyenvan2\kidbuu\trunk\christmasgame\src\helloworld.cpp(273): warning C4129: 'i' : unrecognized character escape sequence
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IE:\Projects\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\Box2D\include /IE:\Projects\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\Box2D\src /IE:\Projects\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\irrKlang\include /IE:\Projects\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\irrLicht\include /IE:\Projects\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\irrLicht\src /IE:\Projects\KidBuu\trunk\christmasGame\prj\..\src /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\Sound\SoundManager.cpp
+         SoundManager.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Debug\Game_2012.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\irrKlang\staticLib\Win32-visualStudio" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Debug\Game_2012.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Debug\Game_2012.lib" /MACHINE:X86 Debug\HelloWorld.obj
-         D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Debug\Box2D_2012.lib
-         D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Debug\irrKlang_2012.lib
-         D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Debug\irrLitch.lib
-            Creating library D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Debug\Game_2012.lib and object D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Debug\Game_2012.exp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Projects\KidBuu\trunk\christmasGame\prj\..\build\Win32\Game_2012.exe" /INCREMENTAL /NOLOGO /LIBPATH:"E:\Projects\KidBuu\trunk\christmasGame\prj\..\ExternalLibs\irrKlang\staticLib\Win32-visualStudio" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Projects\KidBuu\trunk\christmasGame\prj\..\build\Win32\Game_2012.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Projects\KidBuu\trunk\christmasGame\prj\..\build\Win32\Game_2012.lib" /MACHINE:X86 Debug\HelloWorld.obj
+         Debug\Sound.obj
+         Debug\SoundManager.obj
+         Debug\SimpleSprite.obj
+         E:\Projects\KidBuu\trunk\christmasGame\prj\Debug\Box2D_2012.lib
+         E:\Projects\KidBuu\trunk\christmasGame\prj\Debug\irrKlang_2012.lib
+         E:\Projects\KidBuu\trunk\christmasGame\prj\Debug\irrLitch.lib
+     1>HelloWorld.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+            Creating library E:\Projects\KidBuu\trunk\christmasGame\prj\..\build\Win32\Game_2012.lib and object E:\Projects\KidBuu\trunk\christmasGame\prj\..\build\Win32\Game_2012.exp
      1>irrLitch.lib(CBillboardSceneNode.obj) : warning LNK4049: locally defined symbol ?IdentityMatrix@core@irr@@3V?$CMatrix4@M@12@B (class irr::core::CMatrix4<float> const irr::core::IdentityMatrix) imported
      1>irrLitch.lib(CTerrainSceneNode.obj) : warning LNK4049: locally defined symbol ?IdentityMatrix@core@irr@@3V?$CMatrix4@M@12@B (class irr::core::CMatrix4<float> const irr::core::IdentityMatrix) imported
      1>irrLitch.lib(CSceneManager.obj) : warning LNK4049: locally defined symbol ?IdentityMatrix@core@irr@@3V?$CMatrix4@M@12@B (class irr::core::CMatrix4<float> const irr::core::IdentityMatrix) imported
@@ -52,9 +56,9 @@
      1>irrLitch.lib(CCubeSceneNode.obj) : warning LNK4049: locally defined symbol ?IdentityMaterial@video@irr@@3VSMaterial@12@A (class irr::video::SMaterial irr::video::IdentityMaterial) imported
      1>irrLitch.lib(CSphereSceneNode.obj) : warning LNK4049: locally defined symbol ?IdentityMaterial@video@irr@@3VSMaterial@12@A (class irr::video::SMaterial irr::video::IdentityMaterial) imported
      1>irrLitch.lib(CAnimatedMeshSceneNode.obj) : warning LNK4049: locally defined symbol ?IdentityMaterial@video@irr@@3VSMaterial@12@A (class irr::video::SMaterial irr::video::IdentityMaterial) imported
-         Game_2012.vcxproj -> D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Debug\Game_2012.exe
-     1>Done Building Project "D:\hung.nguyenvan2\KidBuu\trunk\christmasGame\prj\Game_2012.vcxproj" (Build target(s)).
+         Game_2012.vcxproj -> E:\Projects\KidBuu\trunk\christmasGame\prj\..\build\Win32\Game_2012.exe
+     1>Done Building Project "E:\Projects\KidBuu\trunk\christmasGame\prj\Game_2012.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.52
+Time Elapsed 00:00:03.20
