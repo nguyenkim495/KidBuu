@@ -14,6 +14,9 @@ and a pointer to a listbox.
 #include "driverChoice.h"
 #include "irrKlang.h"
 #include "Sprite\SimpleSprite.h"
+#include "Sound\Sound.h"
+#include "Sound\SoundManager.h"
+
 using namespace irr;
 
 using namespace core;
@@ -145,10 +148,16 @@ struct SAppContext
 int main()
 {
 	IrrlichtDevice* device = createDevice(EDT_OPENGL, core::dimension2d<u32>(640, 480));
-	irrklang::ISoundEngine* engineSound = irrklang::createIrrKlangDevice();
+	SoundManager* S_Sound = new SoundManager();
+	S_Sound->createSingleton();
+	S_Sound->createEngineSound();
+
+	Sound* soundtest = new Sound("../res/getout.ogg");
+
+	//irrklang::ISoundEngine* engineSound = irrklang::createIrrKlangDevice();
 
 
-	if (device == 0 || !engineSound)
+	if (device == 0)// || !engineSound)
 		return 1; // could not create selected driver.
 
 
@@ -167,20 +176,10 @@ int main()
 	}
 
 
-	char* fileName = "";
 	SimpleSprite* sprite = new SimpleSprite(device, "../res/sydney.bmp", core::vector3df(0, 0, 0));
 
 	smgr->addCameraSceneNode(0, vector3df(5, 5, 5), vector3df(0, 0, 0));
-	//video::ITexture* images = driver->getTexture("");
-	// Then create the event receiver, giving it that context structure.
-	//MyEventReceiver receiver(context);
-
-	// And tell the device to use our custom event receiver.
-	//device->setEventReceiver(&receiver);
-
-
-
-	//engineSound->play2D("../res/sound/getout.ogg", true);
+	soundtest->play();
 
 	while(device->run() && driver)
 	if (device->isWindowActive())
@@ -192,7 +191,6 @@ int main()
 	}
 
 	device->drop();
-	engineSound->drop();
 
 	return 0;
 }
