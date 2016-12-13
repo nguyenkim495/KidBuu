@@ -11,9 +11,10 @@ public:
 	virtual ~SoundManager();
 
 	static SoundManager* m_soundSingleton;
+	static bool createSingleton();
 	static SoundManager* getSingleton();
 
-	bool createSingleton();
+	void Init();
 	bool createEngineSound();
 	bool dropEngineSound();
 	ISoundEngine* getEngineSound();

@@ -4,7 +4,7 @@
 SoundManager* SoundManager::m_soundSingleton = nullptr;
 SoundManager::SoundManager()
 {
-	
+	m_engineSound = nullptr;
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -13,6 +13,14 @@ SoundManager::~SoundManager()
 	//return;
 }
 
+///////////////////////////////////////////////////////////////////////////
+void SoundManager::Init()
+{
+	if(!m_soundSingleton)
+		m_soundSingleton = new SoundManager();
+	if(!m_engineSound)
+		createEngineSound();
+}
 ///////////////////////////////////////////////////////////////////////////
 bool SoundManager::createEngineSound()
 {

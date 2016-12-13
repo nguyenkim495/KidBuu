@@ -148,11 +148,11 @@ struct SAppContext
 int main()
 {
 	IrrlichtDevice* device = createDevice(EDT_OPENGL, core::dimension2d<u32>(640, 480));
-	SoundManager* S_Sound = new SoundManager();
-	S_Sound->createSingleton();
-	S_Sound->createEngineSound();
-
-	Sound* soundtest = new Sound("../res/getout.ogg");
+	if(SoundManager::createSingleton())
+	{
+		SoundManager::getSingleton()->Init();
+	}
+	Sound* soundtest = new Sound("../res/sound/getout.ogg", true);
 
 	//irrklang::ISoundEngine* engineSound = irrklang::createIrrKlangDevice();
 
@@ -167,27 +167,47 @@ int main()
 	video::IVideoDriver* driver = device->getVideoDriver();
 	scene::ISceneManager* smgr = device->getSceneManager();
 
-	scene::IAnimatedMesh* mesh = smgr->getMesh("../res/CubeChristmas/cube.obj");
-	scene::ISceneNode* node = smgr->addAnimatedMeshSceneNode(mesh);
+	scene::IAnimatedMesh* mesh = smgr->getMesh("../res/sampleTest/cube.dae");
+	//scene::ISceneNode* node = smgr->addAnimatedMeshSceneNode(mesh);
+	scene::IAnimatedMeshSceneNode* nodeAnimation = smgr->addAnimatedMeshSceneNode(mesh);
 
-	if(node)
+	if(nodeAnimation)
 	{
-		node->setMaterialFlag(EMF_LIGHTING, false);
+		scene::ISceneNodeAnimator* anim = smgr->createFlyStraightAnimator(core::vector3df(10,0,6),
+            core::vector3df(-10,0,6), 3500, true);
+		if(anim)
+		{
+			nodeAnimation->addAnimator(anim);
+			anim->drop();
+		}
+
+		nodeAnimation->setMaterialFlag(EMF_LIGHTING, false);
+		nodeAnimation->setFrameLoop(0, 80);
+		nodeAnimation->setAnimationSpeed(15);
 	}
 
 
 	SimpleSprite* sprite = new SimpleSprite(device, "../res/sydney.bmp", core::vector3df(0, 0, 0));
 
-	smgr->addCameraSceneNode(0, vector3df(5, 5, 5), vector3df(0, 0, 0));
+	smgr->addCameraSceneNode(0, vector3df(13, 15, 15), vector3df(0, 0, 0));
 	soundtest->play();
+
+
+	int k = 5000;
 
 	while(device->run() && driver)
 	if (device->isWindowActive())
 	{
 		driver->beginScene(true, true, SColor(0,200,200,200));
-		sprite->render();
+		//sprite->render();
 		smgr->drawAll();
 		driver->endScene();
+
+		k--;
+		if(k == 1500)
+			soundtest->pause();
+		else if(k == 0)
+			soundtest->resume();
 	}
 
 	device->drop();
