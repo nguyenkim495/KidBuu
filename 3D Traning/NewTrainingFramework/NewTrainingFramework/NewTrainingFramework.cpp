@@ -7,11 +7,13 @@
 #include "Shaders.h"
 #include "Globals.h"
 #include <conio.h>
+#include "Camera.h"
 
 
 GLuint vboId;
 GLuint cboId;
 Shaders myShaders;
+Camera myCamera;
 
 int Init ( ESContext *esContext )
 {
@@ -27,7 +29,7 @@ int Init ( ESContext *esContext )
 
 	colorData[0].pos.x =  1.0f;  colorData[0].pos.y =  0.0f;  colorData[0].pos.z =  0.0f;
 	colorData[1].pos.x = 0.0f;  colorData[1].pos.y = 1.0f;  colorData[1].pos.z =  0.0f;
-	colorData[2].pos.x =  0.0f;  colorData[2].pos.y = 1.0f;  colorData[2].pos.z =  0.0f;
+	colorData[2].pos.x =  0.0f;  colorData[2].pos.y = 0.0f;  colorData[2].pos.z =  1.0f;
 
 	//buffer object
 	glGenBuffers(1, &vboId);
@@ -36,7 +38,15 @@ int Init ( ESContext *esContext )
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
+	//buffer object
+	glGenBuffers(1, &cboId);
+	glBindBuffer(GL_ARRAY_BUFFER, cboId);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
 	//creation of shaders and program 
+	//esLogMessage("creation of shaders and program");
 	return myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
 
 }
@@ -56,16 +66,22 @@ void Draw ( ESContext *esContext )
 		glVertexAttribPointer(myShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	}
 
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, cboId);
 	////tack tac
 	if(myShaders.colorAttribute != -1)
 	{
 		glEnableVertexAttribArray(myShaders.colorAttribute);
 		glVertexAttribPointer(myShaders.colorAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	}
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	
 
 	eglSwapBuffers ( esContext->eglDisplay, esContext->eglSurface );
 }
@@ -77,7 +93,38 @@ void Update ( ESContext *esContext, float deltaTime )
 
 void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 {
-
+	bool test;
+	switch (key)
+	{
+		//movement
+	case 'W':
+		myCamera.moveCamera(Direction::FORWARD);
+		break;
+	case 'S':
+		myCamera.moveCamera(Direction::BACKWARD);
+		break;
+	case 'A':
+		myCamera.moveCamera(Direction::LEFT);
+		break;
+	case 'D':
+		myCamera.moveCamera(Direction::RIGHT);
+		break;
+		//rotation
+	case 0x26:
+		myCamera.rotationCamera(Direction::UP);
+		break;
+	case 0x28:
+		myCamera.rotationCamera(Direction::DOWN);
+		break;
+	case 0x25:
+		myCamera.rotationCamera(Direction::LEFT);
+		break;
+	case 0x27:
+		myCamera.rotationCamera(Direction::RIGHT);
+		break;
+	default:
+		break;
+	}
 }
 
 void CleanUp()
