@@ -20,14 +20,18 @@ int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 
 	//finding location of uniforms / attributes
 	positionAttribute = glGetAttribLocation(program, "a_posL");
-	colorAttribute = glGetAttribLocation(program, "AColor");
+	colorAttribute = glGetAttribLocation(program, "a_AColor");
+	WVPMatrix = glGetUniformLocation(program, "u_WVP");
 
 	return 0;
 }
 
 Shaders::~Shaders()
 {
-	glDeleteProgram(program);
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	if(program)
+		glDeleteProgram(program);
+	if(vertexShader != 0)
+		glDeleteShader(vertexShader);
+	if(fragmentShader != 0)
+		glDeleteShader(fragmentShader);
 }

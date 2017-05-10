@@ -16,15 +16,33 @@ class Camera
 {
 private:
 	Vector3 m_Vec3Position;
-	float m_fRotaion;
-
-	Vector3 m_Vec3MVP;
+	Vector3 m_Vec3Target; //pending
+	Vector3 m_Vec3Up;
+	//
+	Matrix m_matTranslation;
+	Matrix m_matRotaion;
+	//
+	Matrix m_matWVP;
+	//const Vector4 WORLDMATRIX;
+	float m_fSpeed;
 public:
+	Camera();
+	//~Camera();
 	bool moveCamera(Direction direc);
 	bool rotationCamera(Direction direc);
-	Vector4 calculateViewMatrix();
-	Vector4 calculateWorldMatrix();
+	Matrix calculateViewMatrix();
+	Matrix calculateWorldMatrix();
+	float* getWVPMatrix(Matrix);
 	void Update(float dt);
+	void setSpeed(float sp)
+	{
+		m_fSpeed = sp;
+	}
+
+	float getSpeed()
+	{
+		return m_fSpeed;
+	}
 
 };
 #endif

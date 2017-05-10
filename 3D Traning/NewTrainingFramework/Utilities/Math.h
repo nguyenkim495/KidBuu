@@ -136,6 +136,7 @@ public:
 	// Matrix operations
 	Matrix & SetZero();
 	Matrix & SetIdentity();
+	
 
 	Matrix & SetRotationX(GLfloat angle);
 	Matrix & SetRotationY(GLfloat angle);
@@ -155,6 +156,7 @@ public:
 	Matrix & SetPerspectiveInverse(GLfloat fovY, GLfloat aspect, GLfloat nearPlane, GLfloat farPlane);
 
 	Matrix Transpose();
+	Matrix Inverse();
 
 	Matrix operator + (const Matrix & mat);
 	Matrix & operator += (const Matrix & mat);
@@ -170,4 +172,5 @@ public:
 	Matrix & operator = (const Matrix & mat);
 	//data members
 	GLfloat m[4][4];
+	GLfloat * getDataMembers();
 };

@@ -8,87 +8,88 @@
 #include "Globals.h"
 #include <conio.h>
 #include "Camera.h"
+#include "SpriteModel.h"
 
 
 GLuint vboId;
 GLuint cboId;
+GLuint iboId;
+GLuint WVPId;
+GLuint vertexArrayObject;
+
 Shaders myShaders;
 Camera myCamera;
+GLfloat globalAngle;
+SpriteModel mySprite;
+
+
 
 int Init ( ESContext *esContext )
 {
 	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
-
-	//triangle data (heap)
-	Vertex verticesData[3];
-	Vertex colorData[3];
-
-	verticesData[0].pos.x =  0.0f;  verticesData[0].pos.y =  0.5f;  verticesData[0].pos.z =  0.0f;
-	verticesData[1].pos.x = -0.5f;  verticesData[1].pos.y = -0.5f;  verticesData[1].pos.z =  0.0f;
-	verticesData[2].pos.x =  0.5f;  verticesData[2].pos.y = -0.5f;  verticesData[2].pos.z =  0.0f;
-
-	colorData[0].pos.x =  1.0f;  colorData[0].pos.y =  0.0f;  colorData[0].pos.z =  0.0f;
-	colorData[1].pos.x = 0.0f;  colorData[1].pos.y = 1.0f;  colorData[1].pos.z =  0.0f;
-	colorData[2].pos.x =  0.0f;  colorData[2].pos.y = 0.0f;  colorData[2].pos.z =  1.0f;
-
-	//buffer object
+	mySprite.LoadModelFile("Marine.nfg");
+	
+	//vertex buffer
 	glGenBuffers(1, &vboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mySprite.m_iNumVertices*sizeof(Vector3), mySprite.GetVertexModel(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-
-	//buffer object
-	glGenBuffers(1, &cboId);
-	glBindBuffer(GL_ARRAY_BUFFER, cboId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+	//index buffer
+	glGenBuffers(1, &iboId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mySprite.m_iNumIndices*sizeof(Vector3), mySprite.GetIndicesModel(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	//creation of shaders and program 
 	//esLogMessage("creation of shaders and program");
 	return myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
+	
 
 }
 
 void Draw ( ESContext *esContext )
 {
+	GLuint offset = 0;
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(myShaders.program);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-
+	glBufferData(GL_ARRAY_BUFFER, mySprite.m_iNumVertices*sizeof(Vector3), mySprite.GetVertexModel(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mySprite.m_iNumIndices*sizeof(Vector3), mySprite.GetIndicesModel(), GL_STATIC_DRAW);
 	
 	if(myShaders.positionAttribute != -1)
 	{
+
 		glEnableVertexAttribArray(myShaders.positionAttribute);
-		glVertexAttribPointer(myShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+		glVertexAttribPointer(myShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offset);
+		offset += sizeof(Vector3) * sizeof(GLfloat);
 	}
 
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-
-	glBindBuffer(GL_ARRAY_BUFFER, cboId);
-	////tack tac
-	if(myShaders.colorAttribute != -1)
-	{
-		glEnableVertexAttribArray(myShaders.colorAttribute);
-		glVertexAttribPointer(myShaders.colorAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-	}
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawElements(GL_TRIANGLES, mySprite.m_iNumIndices, GL_UNSIGNED_INT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	
+	if(myShaders.WVPMatrix != -1)
+	{
+		Matrix WorldObj;
+		WorldObj.SetScale(0.1, 0.1, 0.1);
+		glUniformMatrix4fv(myShaders.WVPMatrix, 1, false, myCamera.getWVPMatrix(WorldObj));
+	}
+
 
 	eglSwapBuffers ( esContext->eglDisplay, esContext->eglSurface );
 }
 
+
 void Update ( ESContext *esContext, float deltaTime )
 {
+	myCamera.setSpeed(deltaTime*5.0f);
+	globalAngle += deltaTime;
 
+	//esLogMessage("deltatime: %f\n", deltaTime);
 }
 
 void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)

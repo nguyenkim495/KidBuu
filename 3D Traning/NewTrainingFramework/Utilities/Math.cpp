@@ -598,6 +598,80 @@ Matrix Matrix::Transpose()
 	return res;
 }
 
+Matrix Matrix::Inverse()
+{
+	Matrix res;
+	res.SetIdentity();
+
+	double det;
+	double d12, d13, d23, d24, d34, d41;
+	double tmp[16];
+
+	// Inverse = adjoint / det. (See linear algebra texts.)
+	// pre-compute 2x2 dets for last two rows when computing
+	// cofactors of first two rows.
+	d12 = (m[0][2]*m[1][3]-m[0][3]*m[1][2]);
+	d13 = (m[0][2]*m[2][3]-m[0][3]*m[2][2]);
+	d23 = (m[1][2]*m[2][3]-m[1][3]*m[2][2]);
+	d24 = (m[1][2]*m[3][3]-m[1][3]*m[3][2]);
+	d34 = (m[2][2]*m[3][3]-m[2][3]*m[3][2]);
+	d41 = (m[3][2]*m[0][3]-m[3][3]*m[0][2]);
+
+	tmp[0] =  (m[1][1] * d34 - m[2][1] * d24 + m[3][1] * d23);
+	tmp[1] = -(m[0][1] * d34 + m[2][1] * d41 + m[3][1] * d13);
+	tmp[2] =  (m[0][1] * d24 + m[1][1] * d41 + m[3][1] * d12);
+	tmp[3] = -(m[0][1] * d23 - m[1][1] * d13 + m[2][1] * d12);
+
+	// Compute determinant as early as possible using these cofactors.
+	det = m[0][0] * tmp[0] + m[1][0] * tmp[1] + m[2][0] * tmp[2] + m[3][0] * tmp[3];
+
+	// Run singularity test.
+	if (det == 0.0) {
+		//printf("invert_matrix: Warning: Singular matrix.\n");
+		return res;
+	}
+	else {
+		double invDet = 1.0 / det;
+		// Compute rest of inverse.
+		tmp[0] *= invDet;
+		tmp[1] *= invDet;
+		tmp[2] *= invDet;
+		tmp[3] *= invDet;
+
+		tmp[4] = -(m[1][0] * d34 - m[2][0] * d24 + m[3][0] * d23) * invDet;
+		tmp[5] =  (m[0][0] * d34 + m[2][0] * d41 + m[3][0] * d13) * invDet;
+		tmp[6] = -(m[0][0] * d24 + m[1][0] * d41 + m[3][0] * d12) * invDet;
+		tmp[7] =  (m[0][0] * d23 - m[1][0] * d13 + m[2][0] * d12) * invDet;
+
+		// Pre-compute 2x2 dets for first two rows when computing
+		// cofactors of last two rows.
+		d12 = m[0][0]*m[1][1]-m[0][1]*m[1][0];
+		d13 = m[0][0]*m[2][1]-m[0][1]*m[2][0];
+		d23 = m[1][0]*m[2][1]-m[1][1]*m[2][0];
+		d24 = m[1][0]*m[3][1]-m[1][1]*m[3][0];
+		d34 = m[2][0]*m[3][1]-m[2][1]*m[3][0];
+		d41 = m[3][0]*m[0][1]-m[3][1]*m[0][0];
+
+		tmp[8] =  (m[1][3] * d34 - m[2][3] * d24 + m[3][3] * d23) * invDet;
+		tmp[9] = -(m[0][3] * d34 + m[2][3] * d41 + m[3][3] * d13) * invDet;
+		tmp[10] =  (m[0][3] * d24 + m[1][3] * d41 + m[3][3] * d12) * invDet;
+		tmp[11] = -(m[0][3] * d23 - m[1][3] * d13 + m[2][3] * d12) * invDet;
+		tmp[12] = -(m[1][2] * d34 - m[2][2] * d24 + m[3][2] * d23) * invDet;
+		tmp[13] =  (m[0][2] * d34 + m[2][2] * d41 + m[3][2] * d13) * invDet;
+		tmp[14] = -(m[0][2] * d24 + m[1][2] * d41 + m[3][2] * d12) * invDet;
+		tmp[15] =  (m[0][2] * d23 - m[1][2] * d13 + m[2][2] * d12) * invDet;
+
+		for (int i = 0; i < 4; ++i)
+			for (int j = 0; j < 4; ++j)
+				res.m[i][j] = (float)tmp[i*4 + j];
+	}
+	return res;
+}
+
+GLfloat * Matrix::getDataMembers()
+{
+	return (GLfloat*)m;
+}
 Matrix Matrix::operator + (const Matrix & mat)
 {
 	Matrix res( *this );
