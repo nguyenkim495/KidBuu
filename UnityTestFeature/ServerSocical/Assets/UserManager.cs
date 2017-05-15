@@ -12,12 +12,16 @@ public class UserManager : MonoBehaviour {
 
     private string apiKey = "cd18e9405709ff97ddfd5fb59b8d035ee75362e747f98e2e155c04a7423f26a7";
     private string secretKey = "4523e8a6ed3604a6c2f508390e2929604d4ccdd1422f36053a783f5ad3b21a6b";
-    private string DataBaseName = "PANDATABASE";
+    
     ServiceAPI serviceAPI;
     UserService userService;
     List<string> listUserID;
     public Text createUser;
-    public String jonsTest = "{\"userID\":\"1185743988204572\",\"rank\":\"chicken\",\"Highest Score\":\"19090\"}";
+
+    //storage userProfile
+    private string DataBaseName = "PANDATABASE";
+    public String jonsTest = "";// "{\"userID\":\"1185743988204572NUMBER2\",\"rank\":\"chicken\",\"Highest Score\":\"19090\"}";
+    public string collectionName = "UserProfile";
 
     StorageService storageService = null;
 
@@ -35,11 +39,42 @@ public class UserManager : MonoBehaviour {
 		
 	}
 
-    public void UpdateRank()
+    public void CreateNewUserProfile()
     {
-        string userID;
-        storageService.InsertJSONDocument(DataBaseName, "NewCollection", jonsTest, callBack: new UpdateCallback());
+        jonsTest = "{\"userID\":\"1185743988204572NUMBER2\",\"rank\":\"chicken\",\"Highest Score\":\"19090\"}";
+        storageService.InsertJSONDocument(DataBaseName, collectionName, jonsTest, callBack: new UpdateCallback());
     }
+
+    public void UpdateUserProfile()
+    {
+        //test update rank
+        String newUpdateJson = "{\"userID\":\"1185743988204572\",\"rank\":\"MasterChicken\",\"Highest Score\":\"19090\"}";
+        storageService.UpdateDocumentByKeyValue(DataBaseName, collectionName, "userID", "1185743988204572", newUpdateJson, new UpdateCallback());
+    }
+
+    public void GetLeaderboard()
+    {
+        storageService.FindAllDocuments(DataBaseName, collectionName, new LeaderboardCallback());
+    }
+    public class LeaderboardCallback : App42CallBack
+    {
+        public void OnSuccess(object response)
+        {
+            Storage storage = (Storage)response;
+            IList<Storage.JSONDocument> jsonDocList = storage.GetJsonDocList();
+            for(int i = 0; i < jsonDocList.Count; i++)
+            {
+                Debug.Log("jon Doc: " + jsonDocList[i].GetJsonDoc());
+            }
+               
+
+        }
+        public void OnException(Exception e)
+        {
+
+        }
+    }
+
     public class UpdateCallback : App42CallBack
     {
         public void OnSuccess(object response)
@@ -68,7 +103,10 @@ public class UserManager : MonoBehaviour {
             /* This will create user in App42 cloud and will return User object */
             App42Log.Console("userName is " + user.GetUserName());
             App42Log.Console("emailId is " + user.GetEmail());
+
             
+
+
         }
         public void OnException(Exception e)
         {
