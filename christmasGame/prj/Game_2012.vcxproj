@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,13 +19,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -50,7 +50,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\ExternalLibs\Box2D\include;$(ProjectDir)..\ExternalLibs\Box2D\src;$(ProjectDir)..\ExternalLibs\irrKlang\include;$(ProjectDir)..\ExternalLibs\irrLicht\include;$(ProjectDir)..\ExternalLibs\irrLicht\src;$(ProjectDir)..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -59,6 +59,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\ExternalLibs\irrKlang\staticLib\Win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -79,10 +80,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\App.cpp" />
+    <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\HelloWorld.cpp" />
+    <ClCompile Include="..\src\SceneNode\SceneNode.cpp" />
     <ClCompile Include="..\src\Sound\Sound.cpp" />
     <ClCompile Include="..\src\Sound\SoundManager.cpp" />
+    <ClCompile Include="..\src\Source.cpp" />
     <ClCompile Include="..\src\Sprite\SimpleSprite.cpp" />
+    <ClCompile Include="..\src\State\GS_LoadingMenu.cpp" />
+    <ClCompile Include="..\src\State\State.cpp" />
+    <ClCompile Include="..\src\State\StateMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExternalLibs\Box2D\prj\Box2D_2012.vcxproj">
@@ -96,9 +104,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\App.h" />
+    <ClInclude Include="..\src\Game.h" />
+    <ClInclude Include="..\src\SceneNode\SceneNode.h" />
     <ClInclude Include="..\src\Sound\Sound.h" />
     <ClInclude Include="..\src\Sound\SoundManager.h" />
     <ClInclude Include="..\src\Sprite\SimpleSprite.h" />
+    <ClInclude Include="..\src\State\GS_LoadingMenu.h" />
+    <ClInclude Include="..\src\State\State.h" />
+    <ClInclude Include="..\src\State\StateMgr.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

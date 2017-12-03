@@ -11,6 +11,8 @@ SoundManager::SoundManager()
 SoundManager::~SoundManager()
 {
 	//return;
+	m_soundSingleton = 0;
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -24,7 +26,7 @@ void SoundManager::Init()
 ///////////////////////////////////////////////////////////////////////////
 bool SoundManager::createEngineSound()
 {
-	m_engineSound = createIrrKlangDevice();
+	m_engineSound = irrklang::createIrrKlangDevice();
 	if(m_engineSound)
 		return true;
 	else

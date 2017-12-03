@@ -193,6 +193,7 @@ struct SMD2AnimationType
 
 static const SMD2AnimationType MD2AnimationTypeList[21] =
 {
+//  {first, last, fps}
 	{  0,  39,  9}, // STAND
 	{ 40,  45, 10}, // RUN
 	{ 46,  53, 10}, // ATTACK

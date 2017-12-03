@@ -28,15 +28,18 @@ namespace scene
 	{
 		s32 magic;           // four character code "IDP2"
 		s32 version;         // must be 8
+
 		s32 skinWidth;	     // width of the texture
 		s32 skinHeight;      // height of the texture
 		s32 frameSize;       // size in bytes of an animation frame
+
 		s32 numSkins;        // number of textures
 		s32 numVertices;     // total number of vertices
 		s32 numTexcoords;    // number of vertices with texture coords
 		s32 numTriangles;    // number of triangles
 		s32 numGlCommands;   // number of opengl commands (triangle strip or triangle fan)
 		s32 numFrames;       // animation keyframe count
+
 		s32 offsetSkins;     // offset in bytes to 64 character skin names
 		s32 offsetTexcoords; // offset in bytes to texture coordinate list
 		s32 offsetTriangles; // offset in bytes to triangle list

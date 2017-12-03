@@ -16,6 +16,11 @@ and a pointer to a listbox.
 #include "Sprite\SimpleSprite.h"
 #include "Sound\Sound.h"
 #include "Sound\SoundManager.h"
+#include <time.h>
+#include <string>
+
+////
+#include <SceneNode\SceneNode.h>
 
 using namespace irr;
 
@@ -29,7 +34,7 @@ using namespace irrklang;
 
 #ifdef _IRR_WINDOWS_
 //#pragma comment(lib, "Irrlicht.lib")
-#pragma comment(lib, "irrKlang.lib")
+//#pragma comment(lib, "irrKlang.lib")
 #endif
 
 // Declare a structure to hold some context for the event receiver so that it
@@ -42,9 +47,12 @@ struct SAppContext
 };
 
 
-//class MyEventReceiver : public IEventReceiver
+class MyEventReceiver : public IEventReceiver
+{
+
+};
 //{
-//public:
+//public:h
 //	MyEventReceiver(SAppContext & context) : Context(context) { }
 //
 //	virtual bool OnEvent(const SEvent& event)
@@ -144,70 +152,138 @@ struct SAppContext
 //	SAppContext & Context;
 //};
 
-
-int main()
+const std::string& GetXXX(int number)
 {
-	IrrlichtDevice* device = createDevice(EDT_OPENGL, core::dimension2d<u32>(640, 480));
-	if(SoundManager::createSingleton())
-	{
-		SoundManager::getSingleton()->Init();
-	}
-	Sound* soundtest = new Sound("../res/sound/getout.ogg", true);
-
-	//irrklang::ISoundEngine* engineSound = irrklang::createIrrKlangDevice();
+	std::string a = nullptr;
+	return a;
+}
 
 
-	if (device == 0)// || !engineSound)
-		return 1; // could not create selected driver.
+const wchar_t* to_wide(const float fps)
+{
+	std::wstring FPS;
+	FPS = std::to_wstring(fps);
+	return FPS.c_str();
+}
 
+int mainf()
+{	
+
+	//std::string test = GetXXX(1);
+
+	IrrlichtDevice* device = createDevice(EDT_OPENGL, core::dimension2d<u32>(1366, 768), 32);// , true, false, true);
+	
+	wchar_t *fps = L"0";
+	clock_t start, end;
+
+	if (device == 0)
+		return 1;
 
 	device->setWindowCaption(L"Irrlicht Engine - User Interface Demo");
 	device->setResizable(true);
 
+	
 	video::IVideoDriver* driver = device->getVideoDriver();
+	
 	scene::ISceneManager* smgr = device->getSceneManager();
+	IGUIEnvironment* guienv = device->getGUIEnvironment();
+	
 
-	scene::IAnimatedMesh* mesh = smgr->getMesh("../res/sampleTest/cube.dae");
-	//scene::ISceneNode* node = smgr->addAnimatedMeshSceneNode(mesh);
-	scene::IAnimatedMeshSceneNode* nodeAnimation = smgr->addAnimatedMeshSceneNode(mesh);
+	//guienv->addStaticText(fps, core::rect<s32>(10, 10, 260, 22), false);// , 0, 0, -1, true);
+	//guienv->addEditBox(fps, core::rect<s32>(600, 300, 860, 322), false);// , 0, 0, -1, true);
 
-	if(nodeAnimation)
+	IGUIStaticText *fpsShow = guienv->addStaticText(fps, core::rect<s32>(100, 100, 360, 122), false, false, 0);
+	
+
+	
+
+	//scene::IAnimatedMesh* mesh = smgr->getMesh("../res/sydney.md2");
+	scene::IAnimatedMesh* meshCube = smgr->getMesh("../res/cubemakewrong.md2");
+	scene::IAnimatedMeshSceneNode* nodeCube = smgr->addAnimatedMeshSceneNode(meshCube);
+	if (nodeCube)
 	{
-		scene::ISceneNodeAnimator* anim = smgr->createFlyStraightAnimator(core::vector3df(10,0,6),
-            core::vector3df(-10,0,6), 3500, true);
-		if(anim)
-		{
-			nodeAnimation->addAnimator(anim);
-			anim->drop();
-		}
+		nodeCube->setMaterialFlag(EMF_LIGHTING, false);
+		//nodeCube->setScale(core::vector3df(0.1, 0.1, 0.1));
+		nodeCube->setMaterialTexture(0, driver->getTexture("../res/sydney.bmp"));
+		//node->setMD2Animation(scene::EMAT_STAND);
 
-		nodeAnimation->setMaterialFlag(EMF_LIGHTING, false);
-		nodeAnimation->setFrameLoop(0, 80);
-		nodeAnimation->setAnimationSpeed(15);
+		//node->setMaterialTexture(0, driver->getTexture("../res/sydney.bmp"));
+
 	}
 
-
-	SimpleSprite* sprite = new SimpleSprite(device, "../res/sydney.bmp", core::vector3df(0, 0, 0));
-
-	smgr->addCameraSceneNode(0, vector3df(13, 15, 15), vector3df(0, 0, 0));
-	soundtest->play();
-
-
-	int k = 5000;
-
-	while(device->run() && driver)
-	if (device->isWindowActive())
+	scene::IAnimatedMesh* meshSydney = smgr->getMesh("../res/sydney.md2");
+	scene::ISceneNode* nodeSydney = nullptr; // ->addAnimatedMeshSceneNode(meshSydney);
+	if (nodeSydney)
 	{
-		driver->beginScene(true, true, SColor(0,200,200,200));
-		//sprite->render();
-		smgr->drawAll();
-		driver->endScene();
+		nodeSydney->setMaterialFlag(EMF_LIGHTING, false);
+		nodeSydney->setPosition(core::vector3df(30, 0, 0));
+		nodeSydney->setMaterialTexture(0, driver->getTexture("../res/sydney.bmp"));
 
-		k--;
-		if(k == 1500)
-			soundtest->pause();
-		else if(k == 0)
-			soundtest->resume();
+	}
+	
+	scene::IAnimatedMesh* ground = smgr->getMesh("../res/ground.md2");
+	//scene::ISceneNode* nodeGround = smgr->addAnimatedMeshSceneNode(ground);
+	if (ground)
+	{
+		scene::ISceneNode* nodeGround = nullptr;// smgr->addOctreeSceneNode(ground->getMesh(0), 0, -1, 1024);//draw invisible 
+		if (nodeGround)
+		{
+			nodeGround->setPosition(core::vector3df(0, 0, -100));
+			nodeGround->setMaterialTexture(0, driver->getTexture("../res/sydney.bmp"));
+			//nodeGround->set
+		}
+			
+	}
+		
+
+	//scene::ISceneNode *staticNode = smgr->addSceneNode("../res/cube.dae");
+	
+	//scene node custom
+	CSampleSceneNode* triangle = new CSampleSceneNode(smgr->getRootSceneNode(), smgr, 1);
+	CSampleSceneNode* triangle2 = new CSampleSceneNode(smgr->getRootSceneNode(), smgr, 1);
+	scene::ISceneNodeAnimator* aim = smgr->createRotationAnimator(core::vector3df(0.8f, 0, 0.8f));
+	scene::ISceneNodeAnimator* aim2 = smgr->createRotationAnimator(core::vector3df(-0.8f, 0, -0.8f));
+	if (aim)
+	{
+		//triangle->addAnimator(aim);
+		triangle2->addAnimator(aim);
+		triangle2->setPosition(core::vector3df(10, 1, 1));
+		aim->drop();
+		aim = 0;
+	}
+	
+	triangle->drop();
+	triangle = 0;
+	
+	triangle2->drop();
+	triangle2 = 0;
+
+	
+	
+
+
+	
+
+	smgr->addCameraSceneNode(0, vector3df(0, 90, 120), vector3df(0, 30, 0));
+	//soundtest->play();
+
+
+	
+	driver->beginScene(true, true, SColor(0, 0, 200, 200));
+	while(device->run())
+	{
+
+		int fpsInside = driver->getFPS();
+		core::stringw str = L"FPS: ";
+		str += fpsInside;
+		start = clock();
+		driver->beginScene(true, true, SColor(0,200,200,200));
+		smgr->drawAll();
+		guienv->drawAll();
+		driver->endScene();
+		end = clock();
+		const wchar_t* fps =  to_wide((float)end - start);
+		fpsShow->setText(str.c_str());
 	}
 
 	device->drop();

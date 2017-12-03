@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,13 +19,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -53,7 +53,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\include;$(ProjectDir)..\src;$(ProjectDir)..\src\irrLicht;$(ProjectDir)..\src\irrLicht\irr;$(ProjectDir)..\src\irrLicht\irr\device;$(ProjectDir)..\src\irrLicht\gui;$(ProjectDir)..\src\irrLicht\io;$(ProjectDir)..\src\irrLicht\scene;$(ProjectDir)..\src\irrLicht\scene\particleSystem;$(ProjectDir)..\src\irrLicht\scene\writers;$(ProjectDir)..\src\irrLicht\scene\sceneNodes;$(ProjectDir)..\src\irrLicht\scene\loaders;$(ProjectDir)..\src\irrLicht\scene\collision;$(ProjectDir)..\src\irrLicht\scene\animators;$(ProjectDir)..\src\irrLicht\video;$(ProjectDir)..\src\irrLicht\video\Null\Writer;$(ProjectDir)..\src\irrLicht\video\Null\Loader;$(ProjectDir)..\src\irrLicht\video\Null;$(ProjectDir)..\src\irrLicht\video\Direct3D9;$(ProjectDir)..\src\irrLicht\video\Direct3D8;$(ProjectDir)..\src\irrLicht\video\BurningVideo;$(ProjectDir)..\src\irrLicht\video\Software;$(ProjectDir)..\src\irrLicht\video\OpenGL;$(ProjectDir)..\src\zlib;$(ProjectDir)..\src\lzma;$(ProjectDir)..\src\libpng;$(ProjectDir)..\src\jpeglib;$(ProjectDir)..\src\bzip2;$(ProjectDir)..\src\aesGladman;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
