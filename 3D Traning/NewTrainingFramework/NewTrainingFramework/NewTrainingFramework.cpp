@@ -30,8 +30,7 @@ IndiceFormat* indices;
 int Init ( ESContext *esContext )
 {
 	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
-	mySprite.LoadModelFile("../../NewResourcesPacket/Models/Marine.nfg");
-	//WorldObj.SetScale(0.1, 0.1, 0.1);
+	mySprite.LoadModelFile("../../NewResourcesPacket/Models/witch.nfg");tScale(5);
 	vetexBuf = mySprite.GetVertexModel();
 	indices = mySprite.GetIndicesModel();
 

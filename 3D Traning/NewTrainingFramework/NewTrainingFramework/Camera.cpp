@@ -5,11 +5,11 @@
 Camera::Camera()
 {
 	m_fSpeed = 0;
-	m_Vec3Position.x = 50;
-	m_Vec3Position.y = -50;
-	m_Vec3Position.z = 50;
+	m_Vec3Position.x = 1;
+	m_Vec3Position.y = 1;
+	m_Vec3Position.z = -200;
 
-	m_Vec3Up = Vector3(0.0f, 1.0f, 0.0f);
+	m_Vec3Up = Vector3(0.0f, -1.0f, 0.0f); //??? wht y is -1
 	m_Vec3Target = Vector3(0.0f, 0.0f, 0.0f);
 	m_matTranslation.SetTranslation(m_Vec3Position);
 	m_matRotaion.SetRotationX(0);
@@ -110,7 +110,11 @@ Matrix Camera::calculateViewMatrix()
 	View.m[0][0] = Xaxis.x; View.m[0][1] = Yaxis.x; View.m[0][2] = Zaxis.x; View.m[0][3] = 0;
 	View.m[1][0] = Xaxis.y; View.m[1][1] = Yaxis.y; View.m[1][2] = Zaxis.y; View.m[1][3] = 0;
 	View.m[2][0] = Xaxis.z; View.m[2][1] = Yaxis.z; View.m[2][2] = Zaxis.z; View.m[2][3] = 0;
-	View.m[3][0] = -(m_Vec3Position.Dot(Xaxis)); View.m[3][1] = -(m_Vec3Position.Dot(Yaxis)); View.m[3][2] = -(m_Vec3Position.Dot(Zaxis)); View.m[3][3] = 1;
+
+	View.m[3][0] = -(m_Vec3Position.Dot(Xaxis));
+	View.m[3][1] = -(m_Vec3Position.Dot(Yaxis));
+	View.m[3][2] = -(m_Vec3Position.Dot(Zaxis));
+	View.m[3][3] = 1;
 	return View;
 }
 
