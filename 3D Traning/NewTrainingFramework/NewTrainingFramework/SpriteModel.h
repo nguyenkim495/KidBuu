@@ -12,12 +12,12 @@ struct Vertexv5 //*.nfg format
 	Vector2 UV;
 };
 
-//struct IndiceFormat
-//{
-//	int first;
-//	int second;
-//	int third;
-//};
+struct IndiceFormat
+{
+	GLuint first;
+	GLuint second;
+	GLuint third;
+};
 
 class SpriteModel
 {
@@ -27,13 +27,13 @@ public:
 	bool LoadModelFile(char*);
 	bool ClearModelData();
 	Vector3 * GetVertexModel();
-	Vector3 * GetIndicesModel();
+	IndiceFormat * GetIndicesModel();
 
 	char *m_cFileName;
 	int m_iNumVertices;
 	int m_iNumIndices;
 	Vertexv5 * m_vertexv5ArrVertices;
-	Vector3 * m_indiceFormatArrIndices;
+	IndiceFormat * m_indiceFormatArrIndices;
 
 private:
 	

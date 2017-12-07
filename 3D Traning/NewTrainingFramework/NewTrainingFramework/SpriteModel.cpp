@@ -37,12 +37,12 @@ bool SpriteModel::LoadModelFile(char *fileName)
 	//indices
 	//int numberIndices;
 	fscanf(pFile, "NrIndices: %d\n", &m_iNumIndices);
-	m_indiceFormatArrIndices = new Vector3[m_iNumIndices];
+	m_indiceFormatArrIndices = new IndiceFormat[m_iNumIndices];
 	for(int i = 0; i<m_iNumIndices; i++)
 	{
 		int temp;
-		fscanf(pFile, "   %d.    %d,    %d,    %d\n", &temp,
-			&m_indiceFormatArrIndices[i].x, &m_indiceFormatArrIndices[i].y, &m_indiceFormatArrIndices[i].z);
+		fscanf(pFile, "   %*d.    %d,    %d,    %d\n",
+			&m_indiceFormatArrIndices[i].first, &m_indiceFormatArrIndices[i].second, &m_indiceFormatArrIndices[i].third);
 	}
 	fclose(pFile);
 	return true;
@@ -52,9 +52,9 @@ bool SpriteModel::ClearModelData()
 {
 	if(m_vertexv5ArrVertices)
 	{
-		delete m_vertexv5ArrVertices;
+		delete[] m_vertexv5ArrVertices;
 		if(m_indiceFormatArrIndices)
-			delete m_indiceFormatArrIndices;
+			delete[] m_indiceFormatArrIndices;
 		return true;
 	}
 
@@ -72,9 +72,9 @@ Vector3 * SpriteModel::GetVertexModel()
 	return res;
 }
 
-Vector3 * SpriteModel::GetIndicesModel()
+IndiceFormat * SpriteModel::GetIndicesModel()
 {
-	Vector3 * res = new Vector3[m_iNumIndices];
+	IndiceFormat * res = new IndiceFormat[m_iNumIndices];
 	for(int i = 0; i<m_iNumIndices; i++)
 	{
 		res[i] = m_indiceFormatArrIndices[i];

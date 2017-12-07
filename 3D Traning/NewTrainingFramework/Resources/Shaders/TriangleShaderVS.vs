@@ -6,7 +6,7 @@ varying   vec4	VColor;
 void main()
 {
 	vec4 posL = vec4(a_posL, 1.0);
-	gl_Position = posL * u_WVP;
+	gl_Position = u_WVP * posL;
 	VColor = a_AColor;
 }
    

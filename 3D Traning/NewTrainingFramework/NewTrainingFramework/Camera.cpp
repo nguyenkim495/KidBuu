@@ -5,7 +5,10 @@
 Camera::Camera()
 {
 	m_fSpeed = 0;
-	m_Vec3Position.x = 0; m_Vec3Position.y = 0; m_Vec3Position.z = 100;
+	m_Vec3Position.x = 50;
+	m_Vec3Position.y = -50;
+	m_Vec3Position.z = 50;
+
 	m_Vec3Up = Vector3(0.0f, 1.0f, 0.0f);
 	m_Vec3Target = Vector3(0.0f, 0.0f, 0.0f);
 	m_matTranslation.SetTranslation(m_Vec3Position);
@@ -45,7 +48,7 @@ bool Camera::moveCamera(Direction direc)
 
 bool Camera::rotationCamera(Direction direc)
 {
-	m_fSpeed = m_fSpeed*1.5;
+	//m_fSpeed = m_fSpeed*1.5;
 	Vector4 localTarget = Vector4(0, 0, -(m_Vec3Position - m_Vec3Target).Length(), 1);
 	Vector4 localNewTarget;
 	switch (direc)

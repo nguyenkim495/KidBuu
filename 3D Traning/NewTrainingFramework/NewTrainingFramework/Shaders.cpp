@@ -28,10 +28,10 @@ int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 
 Shaders::~Shaders()
 {
-	if(program)
+	if(program != -1)
 		glDeleteProgram(program);
-	if(vertexShader != 0)
+	if(vertexShader != -1)
 		glDeleteShader(vertexShader);
-	if(fragmentShader != 0)
+	if(fragmentShader != -1)
 		glDeleteShader(fragmentShader);
 }

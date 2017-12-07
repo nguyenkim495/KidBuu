@@ -16,29 +16,36 @@ GLuint cboId;
 GLuint iboId;
 GLuint WVPId;
 GLuint vertexArrayObject;
+Matrix WorldObj;
+
 
 Shaders myShaders;
 Camera myCamera;
 GLfloat globalAngle;
 SpriteModel mySprite;
 
-
+Vector3* vetexBuf;
+IndiceFormat* indices;
 
 int Init ( ESContext *esContext )
 {
 	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
-	mySprite.LoadModelFile("Marine.nfg");
-	
+	mySprite.LoadModelFile("../../NewResourcesPacket/Models/Marine.nfg");
+	//WorldObj.SetScale(0.1, 0.1, 0.1);
+	vetexBuf = mySprite.GetVertexModel();
+	indices = mySprite.GetIndicesModel();
+
+
 	//vertex buffer
 	glGenBuffers(1, &vboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glBufferData(GL_ARRAY_BUFFER, mySprite.m_iNumVertices*sizeof(Vector3), mySprite.GetVertexModel(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mySprite.m_iNumVertices*sizeof(Vector3), vetexBuf, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	//index buffer
 	glGenBuffers(1, &iboId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mySprite.m_iNumIndices*sizeof(Vector3), mySprite.GetIndicesModel(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mySprite.m_iNumIndices*sizeof(IndiceFormat), indices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	//creation of shaders and program 
@@ -56,29 +63,15 @@ void Draw ( ESContext *esContext )
 	glUseProgram(myShaders.program);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glBufferData(GL_ARRAY_BUFFER, mySprite.m_iNumVertices*sizeof(Vector3), mySprite.GetVertexModel(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mySprite.m_iNumIndices*sizeof(Vector3), mySprite.GetIndicesModel(), GL_STATIC_DRAW);
+	glEnableVertexAttribArray(myShaders.positionAttribute);
+	glVertexAttribPointer(myShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
-	if(myShaders.positionAttribute != -1)
-	{
+	glUniformMatrix4fv(myShaders.WVPMatrix, 1, GL_FALSE, myCamera.getWVPMatrix(WorldObj));
 
-		glEnableVertexAttribArray(myShaders.positionAttribute);
-		glVertexAttribPointer(myShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offset);
-		offset += sizeof(Vector3) * sizeof(GLfloat);
-	}
-
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
 	glDrawElements(GL_TRIANGLES, mySprite.m_iNumIndices, GL_UNSIGNED_INT, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	
-	if(myShaders.WVPMatrix != -1)
-	{
-		Matrix WorldObj;
-		WorldObj.SetScale(0.1, 0.1, 0.1);
-		glUniformMatrix4fv(myShaders.WVPMatrix, 1, false, myCamera.getWVPMatrix(WorldObj));
-	}
-
 
 	eglSwapBuffers ( esContext->eglDisplay, esContext->eglSurface );
 }
@@ -131,6 +124,7 @@ void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 void CleanUp()
 {
 	glDeleteBuffers(1, &vboId);
+	glDeleteBuffers(1, &iboId);
 }
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -154,7 +148,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	CleanUp();
 
 	//identifying memory leaks
-	MemoryDump();
+	//MemoryDump();
 	printf("Press any key...\n");
 	_getch();
 
