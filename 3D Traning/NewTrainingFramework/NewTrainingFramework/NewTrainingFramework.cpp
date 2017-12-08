@@ -9,49 +9,85 @@
 #include <conio.h>
 #include "Camera.h"
 #include "SpriteModel.h"
+#include "../Utilities/TGA.h"
 
 
-GLuint vboId;
-GLuint cboId;
+GLuint vboId;//vertex
 GLuint iboId;
+GLuint cboId;//texure
+
 GLuint WVPId;
 GLuint vertexArrayObject;
-Matrix WorldObj;
-
 
 Shaders myShaders;
 Camera myCamera;
 GLfloat globalAngle;
 SpriteModel mySprite;
+Matrix WorldObj;
 
-Vector3* vetexBuf;
-IndiceFormat* indices;
+
+Vector3* vertextBuff;
+index* indiceBuff;
+Vector2* uvBuff;
+
 
 int Init ( ESContext *esContext )
 {
 	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
-	mySprite.LoadModelFile("../../NewResourcesPacket/Models/witch.nfg");tScale(5);
-	vetexBuf = mySprite.GetVertexModel();
-	indices = mySprite.GetIndicesModel();
+	mySprite.LoadModelFile("../../NewResourcesPacket/Models/witch.nfg");
 
+	WorldObj.SetScale(1.5);
 
 	//vertex buffer
+	vertextBuff = mySprite.GetVertexModel();
 	glGenBuffers(1, &vboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glBufferData(GL_ARRAY_BUFFER, mySprite.m_iNumVertices*sizeof(Vector3), vetexBuf, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBufferData(GL_ARRAY_BUFFER, mySprite.m_iNumVertices*sizeof(Vector3), vertextBuff, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);//release
 
 	//index buffer
+	indiceBuff = mySprite.GetIndicesModel();
 	glGenBuffers(1, &iboId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mySprite.m_iNumIndices*sizeof(IndiceFormat), indices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mySprite.m_iNumIndices*sizeof(index), indiceBuff, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);//release
 
-	//creation of shaders and program 
-	//esLogMessage("creation of shaders and program");
-	return myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
-	
+	//uv buffer
+	uvBuff = mySprite.GetUVModel();
+	//texture load
+	glGenBuffers(1, &cboId);
+	glBindBuffer(GL_TEXTURE_2D, cboId);
+	int w,h, bpp;
+	char* bufferTGA;
+	LoadTGA("../../NewResourcesPacket/Textures/Witch.tga", bufferTGA, &w, &h, &bpp);
+	if(bpp == 24)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, bufferTGA);
+	}
+	else//32?
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, bufferTGA);
+	}
+	delete[] bufferTGA;// free buffer on RAM after binded to VRAM
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	if (true)// (tiling == REPEAT)
+    {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    }
+	else if (false)//(tiling == CLAMP_TO_EDGE)
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    }
 
+	//test statge
+	glEnable(GL_SCISSOR_TEST); //order Scissors Test -> Stencil Test -> Depth Test.
+
+	int result = myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
+	return result;
 }
 
 void Draw ( ESContext *esContext )
@@ -61,25 +97,38 @@ void Draw ( ESContext *esContext )
 
 	glUseProgram(myShaders.program);
 
+	//enable vertex buff to position in shader
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
 	glEnableVertexAttribArray(myShaders.positionAttribute);
 	glVertexAttribPointer(myShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
-	glUniformMatrix4fv(myShaders.WVPMatrix, 1, GL_FALSE, myCamera.getWVPMatrix(WorldObj));
 
+	//texture
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, cboId);
+	glUniform1i(myShaders.samplerTextUniform, 0);
+	
+	//WVP matrix
+	glUniformMatrix4fv(myShaders.WVPMatrix, 1, false, myCamera.getWVPMatrix(WorldObj));
+
+	//bind index then draw
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
 	glDrawElements(GL_TRIANGLES, mySprite.m_iNumIndices, GL_UNSIGNED_INT, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	
+
 
 	eglSwapBuffers ( esContext->eglDisplay, esContext->eglSurface );
+
+	
 }
+
 
 
 void Update ( ESContext *esContext, float deltaTime )
 {
-	myCamera.setSpeed(deltaTime*5.0f);
-	globalAngle += deltaTime;
+	//myCamera.setSpeed(deltaTime*5.0f);
+	//globalAngle += deltaTime;
 
 	//esLogMessage("deltatime: %f\n", deltaTime);
 }
@@ -122,6 +171,11 @@ void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 
 void CleanUp()
 {
+	mySprite.Release();
+	if(vertextBuff)
+		delete[] vertextBuff;
+	if(indiceBuff)
+		delete[] indiceBuff;
 	glDeleteBuffers(1, &vboId);
 	glDeleteBuffers(1, &iboId);
 }
@@ -147,7 +201,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	CleanUp();
 
 	//identifying memory leaks
-	//MemoryDump();
+	MemoryDump();
 	printf("Press any key...\n");
 	_getch();
 

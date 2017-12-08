@@ -4,12 +4,13 @@
 
 Camera::Camera()
 {
-	m_fSpeed = 0;
-	m_Vec3Position.x = 1;
-	m_Vec3Position.y = 1;
-	m_Vec3Position.z = -200;
-
-	m_Vec3Up = Vector3(0.0f, -1.0f, 0.0f); //??? wht y is -1
+	m_fSpeed = 20;
+	{
+		m_Vec3Position.x = 5;
+		m_Vec3Position.y = 5;
+		m_Vec3Position.z = 1000;
+	}
+	m_Vec3Up = Vector3(0.0f, -1.0f, 0.0f);
 	m_Vec3Target = Vector3(0.0f, 0.0f, 0.0f);
 	m_matTranslation.SetTranslation(m_Vec3Position);
 	m_matRotaion.SetRotationX(0);
@@ -43,6 +44,9 @@ bool Camera::moveCamera(Direction direc)
 
 	m_Vec3Position += deltaMove;
 	m_Vec3Target += deltaMove;
+
+	//esLogMessage("deltaMove: %f,%f,%f\n", m_Vec3Position.x, m_Vec3Position.y, m_Vec3Position.z);
+
 	return false;
 }
 
@@ -73,8 +77,14 @@ bool Camera::rotationCamera(Direction direc)
 	default:
 		break;
 	}
+
 	Vector4 worldNewTarget =  localTarget * calculateWorldMatrix();
-	m_Vec3Target.x += worldNewTarget.x; m_Vec3Target.y += worldNewTarget.y; m_Vec3Target.z += worldNewTarget.z;
+	
+	{
+		m_Vec3Target.x += worldNewTarget.x;
+		m_Vec3Target.y += worldNewTarget.y;
+		m_Vec3Target.z += worldNewTarget.z;
+	}
 
 /*	Vector3 Zaxis = (m_Vec3Position - m_Vec3Target).Normalize();
 	Vector3 Xaxis = (m_Vec3Up.Cross(Zaxis)).Normalize();
@@ -89,9 +99,9 @@ bool Camera::rotationCamera(Direction direc)
 
 void Camera::Update(float dt)
 {
-	/*Vector3 deltaMove = -(m_Vec3Position - m_Vec3Target).Normalize()*dt*m_fSpeed;
+	Vector3 deltaMove = -(m_Vec3Position - m_Vec3Target).Normalize()*dt*m_fSpeed;
 	m_Vec3Position += deltaMove;
-	m_Vec3Target += deltaMove;*/
+	m_Vec3Target += deltaMove;
 }
 
 
@@ -110,18 +120,14 @@ Matrix Camera::calculateViewMatrix()
 	View.m[0][0] = Xaxis.x; View.m[0][1] = Yaxis.x; View.m[0][2] = Zaxis.x; View.m[0][3] = 0;
 	View.m[1][0] = Xaxis.y; View.m[1][1] = Yaxis.y; View.m[1][2] = Zaxis.y; View.m[1][3] = 0;
 	View.m[2][0] = Xaxis.z; View.m[2][1] = Yaxis.z; View.m[2][2] = Zaxis.z; View.m[2][3] = 0;
-
-	View.m[3][0] = -(m_Vec3Position.Dot(Xaxis));
-	View.m[3][1] = -(m_Vec3Position.Dot(Yaxis));
-	View.m[3][2] = -(m_Vec3Position.Dot(Zaxis));
-	View.m[3][3] = 1;
+	View.m[3][0] = -(m_Vec3Position.Dot(Xaxis)); View.m[3][1] = -(m_Vec3Position.Dot(Yaxis)); View.m[3][2] = -(m_Vec3Position.Dot(Zaxis)); View.m[3][3] = 1;
 	return View;
 }
 
 float* Camera::getWVPMatrix(Matrix worldObj)
 {
 	Matrix projection;
-	projection.SetPerspective(60.0f, Globals::screenWidth/Globals::screenHeight, 0.1f, 1000.0f);
+	projection.SetPerspective(60.0f, Globals::screenWidth/Globals::screenHeight, 1.0f, 10000.0f);
 	m_matWVP = worldObj*calculateViewMatrix()*projection;
 	return m_matWVP.getDataMembers();
 }

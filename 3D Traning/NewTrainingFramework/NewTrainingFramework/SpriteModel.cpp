@@ -17,7 +17,10 @@ bool SpriteModel::LoadModelFile(char *fileName)
 	FILE *pFile;
 	pFile = fopen(fileName, "rt");
 	if(pFile == NULL)
+	{
+		esLogMessage("Can not open the file : %s\n", fileName);
 		return false;
+	}
 	//vertices
 	//int numberVertices;
 	fscanf(pFile, "NrVertices: %d\n", &m_iNumVertices);
@@ -37,7 +40,7 @@ bool SpriteModel::LoadModelFile(char *fileName)
 	//indices
 	//int numberIndices;
 	fscanf(pFile, "NrIndices: %d\n", &m_iNumIndices);
-	m_indiceFormatArrIndices = new IndiceFormat[m_iNumIndices];
+	m_indiceFormatArrIndices = new index[m_iNumIndices];
 	for(int i = 0; i<m_iNumIndices; i++)
 	{
 		int temp;
@@ -52,9 +55,9 @@ bool SpriteModel::ClearModelData()
 {
 	if(m_vertexv5ArrVertices)
 	{
-		delete[] m_vertexv5ArrVertices;
+		delete m_vertexv5ArrVertices;
 		if(m_indiceFormatArrIndices)
-			delete[] m_indiceFormatArrIndices;
+			delete m_indiceFormatArrIndices;
 		return true;
 	}
 
@@ -72,13 +75,32 @@ Vector3 * SpriteModel::GetVertexModel()
 	return res;
 }
 
-IndiceFormat * SpriteModel::GetIndicesModel()
+
+index * SpriteModel::GetIndicesModel()
 {
-	IndiceFormat * res = new IndiceFormat[m_iNumIndices];
+	index * res = new index[m_iNumIndices];
 	for(int i = 0; i<m_iNumIndices; i++)
 	{
 		res[i] = m_indiceFormatArrIndices[i];
 	}
 
 	return res;
+}
+
+Vector2* SpriteModel::GetUVModel()
+{
+	Vector2* res = new Vector2[m_iNumVertices];
+	for(int i = 0; i < m_iNumVertices; i++)
+	{
+		res[i] = m_vertexv5ArrVertices[i].UV;
+	}
+
+	return res;
+}
+void SpriteModel::Release()
+{
+	if(m_vertexv5ArrVertices)
+		delete[] m_vertexv5ArrVertices;
+	if(m_indiceFormatArrIndices)
+		delete[] m_indiceFormatArrIndices;
 }

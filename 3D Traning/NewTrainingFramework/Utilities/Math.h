@@ -129,9 +129,9 @@ class Matrix
 {
 public:
 	//constructors
-	Matrix()
+	Matrix() 
 	{
-		this->SetIdentity();
+		SetIdentity();
 	}
 	Matrix(GLfloat val);
 	Matrix(const Matrix & mat);
