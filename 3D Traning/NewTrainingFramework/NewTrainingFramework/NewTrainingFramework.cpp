@@ -35,9 +35,12 @@ Vector2* uvBuff;
 int Init ( ESContext *esContext )
 {
 	glClearColor ( 1.0f, 1.0f, 1.0f, 1.0f );
-	mySprite.LoadModelFile("../../NewResourcesPacket/Models/witch.nfg");
-
-	WorldObj.SetScale(3.5);
+	mySprite.LoadModelFile("../../NewResourcesPacket/Models/Witch.nfg");
+	//mySprite.LoadModelFile("../../NewResourcesPacket/Models/Marine.nfg");
+	//mySprite.LoadModelFile("../../NewResourcesPacket/Models/Woman1.nfg");
+	
+	//WorldObj.SetScale(10);
+	
 
 	//vertex buffer
 	vertextBuff = mySprite.GetVertexModel();
@@ -63,23 +66,24 @@ int Init ( ESContext *esContext )
 	//texture load
 	glGenBuffers(1, &cboId);
 	glBindTexture(GL_TEXTURE_2D, cboId);
+	/*mySprite.GetImageData()->data;
 	int w,h, bpp;
 	LoadTGA("../../NewResourcesPacket/Textures/Witch.tga", 0, &w, &h, &bpp);
 	char* bufferTGA = new char[w*h*bpp/8];
-	LoadTGA("../../NewResourcesPacket/Textures/Witch.tga", bufferTGA, &w, &h, &bpp);
+	LoadTGA("../../NewResourcesPacket/Textures/Witch.tga", bufferTGA, &w, &h, &bpp);*/
 
-	if(bpp == 24)
+	if(mySprite.GetImageData()->bpp == 24)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, bufferTGA);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mySprite.GetImageData()->w, mySprite.GetImageData()->h, 0, GL_RGB, GL_UNSIGNED_BYTE, mySprite.GetImageData()->data);
 	}
 	else//32?
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, bufferTGA);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mySprite.GetImageData()->w, mySprite.GetImageData()->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, mySprite.GetImageData()->data);
 	}
-	delete[] bufferTGA;// free buffer on RAM after binded to VRAM
+	//delete[] bufferTGA;// free buffer on RAM after binded to VRAM
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//glGenerateMipmap(GL_TEXTURE_2D);
+	glGenerateMipmap(GL_TEXTURE_2D);
 	if (true)// (tiling == REPEAT)
     {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -92,7 +96,7 @@ int Init ( ESContext *esContext )
     }
 
 	//test statge
-	glEnable(GL_SCISSOR_TEST); //order Scissors Test -> Stencil Test -> Depth Test.
+	//glEnable(GL_SCISSOR_TEST); //order Scissors Test -> Stencil Test -> Depth Test.
 	//glEnable(GL_DEPTH_TEST);
 
 	int result = myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
@@ -123,6 +127,7 @@ void Draw ( ESContext *esContext )
 	
 	//WVP matrix
 	WorldObj.SetRotationY(globalAngle);
+
 	glUniformMatrix4fv(myShaders.WVPMatrix, 1, false, myCamera.getWVPMatrix(WorldObj));
 
 	//bind index then draw
@@ -142,7 +147,8 @@ void Draw ( ESContext *esContext )
 void Update ( ESContext *esContext, float deltaTime )
 {
 	//myCamera.setSpeed(deltaTime*5.0f);
-	globalAngle += deltaTime;
+	globalAngle += (deltaTime/2);
+	myCamera.Update(deltaTime);
 
 	//esLogMessage("deltatime: %f\n", deltaTime);
 }

@@ -113,7 +113,7 @@ void LoadUncompressedImage( char* pDest, char * pSrc, TGA_HEADER * pHeader )
         }
 
 
-		printf("%d: ", i);
+		//printf("%d: ", i);
     }
 }
 

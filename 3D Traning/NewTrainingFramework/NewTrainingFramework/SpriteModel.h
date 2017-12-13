@@ -50,8 +50,11 @@ public:
 	Vector3 * GetVertexModel();
 	index * GetIndicesModel();
 	Vector2* GetUVModel();
+	imageData *GetImageData();
 
 	char *m_cFileName;
+	char *m_cFileTextureName;
+	imageData* m_imageData;
 	int m_iNumVertices;
 	int m_iNumIndices;
 	Vertexv5 * m_vertexv5ArrVertices;

@@ -23,6 +23,7 @@ private:
 	Matrix m_matRotaion;
 	//
 	Matrix m_matWVP;
+	Matrix m_projection;
 	//const Vector4 WORLDMATRIX;
 	float m_fSpeed;
 public:
@@ -33,6 +34,7 @@ public:
 	Matrix calculateViewMatrix();
 	Matrix calculateWorldMatrix();
 	float* getWVPMatrix(Matrix);
+	float	delta;
 	void Update(float dt);
 	void setSpeed(float sp)
 	{

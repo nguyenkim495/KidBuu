@@ -1,15 +1,20 @@
 #include "stdafx.h"
 #include "SpriteModel.h"
+#include <../Utilities/TGA.h>
 #include <cstdio>
+
+#define PRE_LOAD "../.."
 
 SpriteModel::SpriteModel()
 {
-	m_cFileName = new char[10];
+//	m_cFileName = new char[10];
+	m_cFileTextureName = new char[100];
 }
 
 SpriteModel::~SpriteModel()
 {
-	delete m_cFileName;
+	//delete m_cFileName;
+	delete m_cFileTextureName;
 }
 
 bool SpriteModel::LoadModelFile(char *fileName)
@@ -47,6 +52,8 @@ bool SpriteModel::LoadModelFile(char *fileName)
 		fscanf(pFile, "   %*d.    %d,    %d,    %d\n",
 			&m_indiceFormatArrIndices[i].first, &m_indiceFormatArrIndices[i].second, &m_indiceFormatArrIndices[i].third);
 	}
+
+	fscanf(pFile, "NrTexture: %s", m_cFileTextureName);
 	fclose(pFile);
 	return true;
 }
@@ -97,10 +104,29 @@ Vector2* SpriteModel::GetUVModel()
 
 	return res;
 }
+
+imageData* SpriteModel::GetImageData()
+{
+	if(m_imageData)
+		return m_imageData;
+	int w, h, bpp;
+	LoadTGA(m_cFileTextureName, 0, &w, &h, &bpp);
+	m_imageData = new imageData();
+	m_imageData->data = new char[w*h*bpp/8];
+	LoadTGA(m_cFileTextureName, m_imageData->data, &m_imageData->w, &m_imageData->h, &m_imageData->bpp);
+
+	return m_imageData;
+}
+
 void SpriteModel::Release()
 {
 	if(m_vertexv5ArrVertices)
 		delete[] m_vertexv5ArrVertices;
 	if(m_indiceFormatArrIndices)
 		delete[] m_indiceFormatArrIndices;
+	if(m_imageData->data)
+	{
+		delete m_imageData->data;
+		delete m_imageData;
+	}
 }
