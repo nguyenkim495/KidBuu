@@ -14,6 +14,7 @@
 
 GLuint vboId;//vertex
 GLuint iboId;
+GLuint uvboId;
 GLuint cboId;//texure
 
 GLuint WVPId;
@@ -33,10 +34,10 @@ Vector2* uvBuff;
 
 int Init ( ESContext *esContext )
 {
-	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
+	glClearColor ( 1.0f, 1.0f, 1.0f, 1.0f );
 	mySprite.LoadModelFile("../../NewResourcesPacket/Models/witch.nfg");
 
-	WorldObj.SetScale(1.5);
+	WorldObj.SetScale(3.5);
 
 	//vertex buffer
 	vertextBuff = mySprite.GetVertexModel();
@@ -54,12 +55,19 @@ int Init ( ESContext *esContext )
 
 	//uv buffer
 	uvBuff = mySprite.GetUVModel();
+	glGenBuffers(1, &uvboId);
+	glBindBuffer(GL_ARRAY_BUFFER, uvboId);
+	glBufferData(GL_ARRAY_BUFFER, mySprite.m_iNumVertices*sizeof(Vector2), uvBuff, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);//release
+
 	//texture load
 	glGenBuffers(1, &cboId);
-	glBindBuffer(GL_TEXTURE_2D, cboId);
+	glBindTexture(GL_TEXTURE_2D, cboId);
 	int w,h, bpp;
-	char* bufferTGA;
+	LoadTGA("../../NewResourcesPacket/Textures/Witch.tga", 0, &w, &h, &bpp);
+	char* bufferTGA = new char[w*h*bpp/8];
 	LoadTGA("../../NewResourcesPacket/Textures/Witch.tga", bufferTGA, &w, &h, &bpp);
+
 	if(bpp == 24)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, bufferTGA);
@@ -71,7 +79,7 @@ int Init ( ESContext *esContext )
 	delete[] bufferTGA;// free buffer on RAM after binded to VRAM
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	//glGenerateMipmap(GL_TEXTURE_2D);
 	if (true)// (tiling == REPEAT)
     {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -85,6 +93,7 @@ int Init ( ESContext *esContext )
 
 	//test statge
 	glEnable(GL_SCISSOR_TEST); //order Scissors Test -> Stencil Test -> Depth Test.
+	//glEnable(GL_DEPTH_TEST);
 
 	int result = myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
 	return result;
@@ -102,13 +111,18 @@ void Draw ( ESContext *esContext )
 	glEnableVertexAttribArray(myShaders.positionAttribute);
 	glVertexAttribPointer(myShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+	//uv
+	glBindBuffer(GL_ARRAY_BUFFER, uvboId);
+	glEnableVertexAttribArray(myShaders.uvAttribute);
+	glVertexAttribPointer(myShaders.uvAttribute, 2, GL_FLOAT, GL_FALSE, sizeof(Vector2), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//texture
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, cboId);
 	glUniform1i(myShaders.samplerTextUniform, 0);
 	
 	//WVP matrix
+	WorldObj.SetRotationY(globalAngle);
 	glUniformMatrix4fv(myShaders.WVPMatrix, 1, false, myCamera.getWVPMatrix(WorldObj));
 
 	//bind index then draw
@@ -128,7 +142,7 @@ void Draw ( ESContext *esContext )
 void Update ( ESContext *esContext, float deltaTime )
 {
 	//myCamera.setSpeed(deltaTime*5.0f);
-	//globalAngle += deltaTime;
+	globalAngle += deltaTime;
 
 	//esLogMessage("deltatime: %f\n", deltaTime);
 }

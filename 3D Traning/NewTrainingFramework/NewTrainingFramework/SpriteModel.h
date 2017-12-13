@@ -27,6 +27,13 @@ struct index
 	GLint third;
 };
 
+struct imageData
+{
+	int w;
+	int h;
+	int bpp;
+	char* data;
+};
 
 class SpriteModel
 {

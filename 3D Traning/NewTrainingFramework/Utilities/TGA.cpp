@@ -111,6 +111,9 @@ void LoadUncompressedImage( char* pDest, char * pSrc, TGA_HEADER * pHeader )
                 pSrcRow += 4;
             }
         }
+
+
+		printf("%d: ", i);
     }
 }
 
