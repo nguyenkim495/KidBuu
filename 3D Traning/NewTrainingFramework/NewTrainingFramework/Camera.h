@@ -33,7 +33,7 @@ public:
 	bool rotationCamera(Direction direc);
 	Matrix calculateViewMatrix();
 	Matrix calculateWorldMatrix();
-	float* getWVPMatrix(Matrix);
+	Matrix getWVPMatrix(Matrix);
 	float	delta;
 	void Update(float dt);
 	void setSpeed(float sp)

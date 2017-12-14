@@ -16,7 +16,7 @@ Camera::Camera()
 	m_Vec3Target = Vector3(0.0f, 0.0f, 0.0f);
 	m_matTranslation.SetTranslation(m_Vec3Position);
 	m_matRotaion.SetRotationX(0);
-	m_projection.SetPerspective(45.0f, Globals::screenWidth/Globals::screenHeight, 1.0f, 100000.0f);
+	m_projection.SetPerspective(45.0f, Globals::screenWidth/Globals::screenHeight, 1.0f, 500000.0f);
 	//m_matWVP = getWVPMatrix();
 }
 
@@ -124,8 +124,8 @@ Matrix Camera::calculateViewMatrix()
 	return View;
 }
 
-float* Camera::getWVPMatrix(Matrix worldObj)
+Matrix Camera::getWVPMatrix(Matrix worldObj)
 {
 	m_matWVP = worldObj*calculateViewMatrix()*m_projection;
-	return m_matWVP.getDataMembers();
+	return m_matWVP;
 }

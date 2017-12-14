@@ -1,7 +1,7 @@
 #ifndef _SPRITE_MODEL_H_
 #define _SPRITE_MODEL_H_
 #include "../Utilities/Math.h"
-
+#include "Shaders.h"
 
 struct Vertexv5 //*.nfg format
 {
@@ -12,16 +12,8 @@ struct Vertexv5 //*.nfg format
 	Vector2 UV;
 };
 
-//struct IndiceFormat
-//{
-//	int first;
-//	int second;
-//	int third;
-//};
-
 struct index
 {
-	//GLushort id;
 	GLint first;
 	GLint second;
 	GLint third;
@@ -35,30 +27,52 @@ struct imageData
 	char* data;
 };
 
+struct bufferIndex
+{
+	GLuint vboId;
+	GLuint iboId;
+	GLuint uvboId;
+	GLuint textureId; //can replace by GLuint* textureId
+	GLuint textureId_2;
+	GLuint textureId_3;
+
+};
+
+
+
 class SpriteModel
 {
 public:
 	SpriteModel();
 	~SpriteModel();
+	///////////////////////////////////////////////////////////
+	void Init(char*, programShaderInfo);
+	void Draw();
+	void Update(float dl);
+	///////////////////////////////////////////////////////////
 	bool LoadModelFile(char*);
 	bool ClearModelData();
 	void Release();
 
-	//Vector3* vertexArray;
-	//index* indexArray;
-
 	Vector3 * GetVertexModel();
 	index * GetIndicesModel();
 	Vector2* GetUVModel();
-	imageData *GetImageData();
+	imageData* GetImageData();
+
+	bufferIndex m_bufferIndex;
+	programShaderInfo m_shaderInfo;
 
 	char *m_cFileName;
-	char *m_cFileTextureName;
-	imageData* m_imageData;
+	char *m_cFileTextureName[3];
+	imageData* m_imageData[3];
 	int m_iNumVertices;
 	int m_iNumIndices;
 	Vertexv5 * m_vertexv5ArrVertices;
 	index * m_indiceFormatArrIndices;
+
+	float Angle;
+	Matrix WVPMatrix;
+	Matrix WorldObj;
 
 private:
 	
