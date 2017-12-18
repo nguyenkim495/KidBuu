@@ -32,6 +32,7 @@ struct bufferIndex
 	GLuint vboId;
 	GLuint iboId;
 	GLuint uvboId;
+	GLuint nboId;
 	GLuint textureId; //can replace by GLuint* textureId
 	GLuint textureId_2;
 	GLuint textureId_3;
@@ -49,15 +50,23 @@ public:
 	void Init(char*, programShaderInfo);
 	void Draw();
 	void Update(float dl);
+	
 	///////////////////////////////////////////////////////////
 	bool LoadModelFile(char*);
 	bool ClearModelData();
 	void Release();
 
-	Vector3 * GetVertexModel();
+	///////////////////////////////////////////////////////////
+	bool m_bPause;
+	bool keyDown(unsigned char, bool);
+
+	Vector3* GetVertexModel();
+	Vector3* GetNormalVector();
 	index * GetIndicesModel();
 	Vector2* GetUVModel();
 	imageData* GetImageData();
+
+	void SetPosition(Vector3 position);
 
 	bufferIndex m_bufferIndex;
 	programShaderInfo m_shaderInfo;
@@ -73,6 +82,9 @@ public:
 	float Angle;
 	Matrix WVPMatrix;
 	Matrix WorldObj;
+
+	Vector3 m_Position;
+	
 
 private:
 	

@@ -7,12 +7,18 @@ struct programShaderInfo
 	GLuint	a_Position;
 	GLuint	a_Color;
 	GLuint	a_UV;
+	GLuint	a_Normal;
 	GLuint	u_s_Texture;
 	GLuint	u_s_Texture2;//Displ
 	GLuint	u_s_Texture3;//Mask
 	GLuint	u_WVP;
 	GLuint	u_other1;//dMax
 	GLuint	u_other2;//u_Time
+	//
+	GLuint	a_PosW;
+	GLuint	u_CameraPosition;
+	GLuint	u_LightDirection;
+	//
 public:
 	void Init()
 	{

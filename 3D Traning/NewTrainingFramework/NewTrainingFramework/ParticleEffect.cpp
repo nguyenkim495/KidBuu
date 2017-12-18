@@ -150,6 +150,7 @@ void ParticleEffect::Draw()
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_DEPTH_TEST);
 
 	glUseProgram(m_shaderInfo.programID);
 
@@ -171,11 +172,11 @@ void ParticleEffect::Draw()
 	//Texure 2
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, m_bufferIndex.textureId_2);
-	glUniform1i(m_shaderInfo.u_s_Texture2, 0);
+	glUniform1i(m_shaderInfo.u_s_Texture2, 1);
 	//Texture 3
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, m_bufferIndex.textureId_3);
-	glUniform1i(m_shaderInfo.u_s_Texture3, 0);
+	glUniform1i(m_shaderInfo.u_s_Texture3, 2);
 	//WVP matrix
 	//worldObj.SetRotationY(Angle);
 	glUniform1f(m_shaderInfo.u_other2, m_deltaTime);
@@ -186,5 +187,7 @@ void ParticleEffect::Draw()
 	//glDrawElements(GL_LINES, m_iNumIndices, GL_UNSIGNED_INT, 0);
 	glDrawElements(GL_TRIANGLES, m_iNumIndices, GL_UNSIGNED_INT, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	
 	glDisable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
 }

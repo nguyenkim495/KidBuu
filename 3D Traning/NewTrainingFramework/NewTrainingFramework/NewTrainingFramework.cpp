@@ -25,9 +25,11 @@ Camera myCamera;
 GLfloat globalAngle;
 
 Shaders myShaders;
+Shaders myShadersLighted;
 Shaders myFireShader;
 
 SpriteModel mySprite;
+SpriteModel mySpriteLighted;
 ParticleEffect myFireEffect;
 
 Matrix WorldObj;
@@ -40,14 +42,22 @@ Vector2* uvBuff;
 
 int Init ( ESContext *esContext )
 {
-	glClearColor ( 1.0f, 1.0f, 1.0f, 1.0f );
+	glClearColor ( 0.7f, 0.7f, 0.7f, 1.0f );
 
 	int result = myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
 	int resultFire = myFireShader.Init("../Resources/Shaders/FireSample.vs", "../Resources/Shaders/FireSample.fs");
+	int resultLighted = myShadersLighted.Init("../Resources/Shaders/ModelsLighted.vs", "../Resources/Shaders/ModelsLighted.fs");
 
-	mySprite.Init("../../NewResourcesPacket/Models/bus.nfg", myShaders.GetShaderInfo());
+	mySprite.Init("../../NewResourcesPacket/Models/witch.nfg", myShaders.GetShaderInfo());
+	mySpriteLighted.Init("../../NewResourcesPacket/Models/witch.nfg", myShadersLighted.GetShaderInfo());
+	//mySprite.Init("../../NewResourcesPacket/Models/Marine.nfg", myShaders.GetShaderInfo());
+	//mySprite.Init("../../NewResourcesPacket/Models/Woman1.nfg", myShaders.GetShaderInfo());
 	myFireEffect.Init("../../NewResourcesPacket/Models/fire.nfg", myFireShader.GetShaderInfo());
-	return result&&resultFire;
+	
+	mySprite.SetPosition(Vector3(300, 0, 0));
+	mySpriteLighted.SetPosition(Vector3(-300, 0, 0));
+
+	return result&&resultFire&&resultLighted;
 }
 
 void Draw ( ESContext *esContext )
@@ -56,8 +66,16 @@ void Draw ( ESContext *esContext )
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-	//mySprite.Draw();
+	
+
+
+	mySprite.Draw();
 	myFireEffect.Draw();
+
+	glUseProgram(myShadersLighted.program);
+	glUniform3f(mySpriteLighted.m_shaderInfo.u_LightDirection, 10.0f, 80.0f, 10.0f);
+
+	mySpriteLighted.Draw();
 
 
 	eglSwapBuffers ( esContext->eglDisplay, esContext->eglSurface );
@@ -72,7 +90,10 @@ void Update ( ESContext *esContext, float deltaTime )
 	globalAngle += (deltaTime/2);
 
 	myCamera.Update(deltaTime);
+
 	mySprite.Update(deltaTime);
+	mySpriteLighted.Update(deltaTime);
+
 	myFireEffect.Update(deltaTime);
 }
 
@@ -107,6 +128,10 @@ void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 	case 0x27:
 		myCamera.rotationCamera(Direction::RIGHT);
 		break;
+	case 32: //space
+		mySprite.keyDown(key, bIsPressed);
+		mySpriteLighted.keyDown(key, bIsPressed);
+		break;
 	default:
 		break;
 	}
@@ -129,7 +154,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
     esInitContext ( &esContext );
 
-	esCreateWindow ( &esContext, "Hello Triangle", Globals::screenWidth, Globals::screenHeight, ES_WINDOW_RGB | ES_WINDOW_DEPTH);
+	esCreateWindow ( &esContext, "OpenGL", Globals::screenWidth, Globals::screenHeight, ES_WINDOW_RGB | ES_WINDOW_DEPTH);
 
 	if ( Init ( &esContext ) != 0 )
 		return 0;

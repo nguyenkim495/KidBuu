@@ -14,7 +14,7 @@ enum Direction
 };
 class Camera
 {
-private:
+public:
 	Vector3 m_Vec3Position;
 	Vector3 m_Vec3Target; //pending
 	Vector3 m_Vec3Up;

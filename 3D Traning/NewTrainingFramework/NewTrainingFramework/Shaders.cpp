@@ -38,6 +38,14 @@ int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 	m_ShaderInfo.u_s_Texture3 = glGetUniformLocation(program, "u_s_TextureMask");
 	m_ShaderInfo.u_other1 = glGetUniformLocation(program, "dMax");
 	m_ShaderInfo.u_other2 = glGetUniformLocation(program, "u_Time");
+	//for lighting
+	m_ShaderInfo.a_PosW = glGetAttribLocation(program, "a_posW");
+	m_ShaderInfo.a_Normal = glGetAttribLocation(program, "a_normal");
+	m_ShaderInfo.u_CameraPosition = glGetUniformLocation(program, "u_EyePos");
+	m_ShaderInfo.u_LightDirection = glGetUniformLocation(program, "u_LightDirection");
+
+
+
 
 	return 0;
 }

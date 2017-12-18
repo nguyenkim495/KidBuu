@@ -12,6 +12,7 @@ SpriteModel::SpriteModel()
 {
 //	m_cFileName = new char[10];
 	//m_cFileTextureName = new char[100];
+	m_bPause = false;
 }
 
 SpriteModel::~SpriteModel()
@@ -93,6 +94,12 @@ void SpriteModel::Init(char* fileName, programShaderInfo shaderinfor)
 	glBufferData(GL_ARRAY_BUFFER, m_iNumVertices*sizeof(Vector2), GetUVModel(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);//release
 
+	//normal buffer
+	glGenBuffers(1, &m_bufferIndex.nboId);
+	glBindBuffer(GL_ARRAY_BUFFER, m_bufferIndex.nboId);
+	glBufferData(GL_ARRAY_BUFFER, m_iNumVertices*sizeof(Vector3), GetNormalVector(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);//release
+
 	//texture load
 	glGenBuffers(1, &m_bufferIndex.textureId);
 	glBindTexture(GL_TEXTURE_2D, m_bufferIndex.textureId);
@@ -123,11 +130,15 @@ void SpriteModel::Init(char* fileName, programShaderInfo shaderinfor)
 	m_shaderInfo = shaderinfor;
 
 
-	WorldObj.SetTranslation(Vector3(50.0f, 0.0f, 0.0f));
+	//WorldObj.SetTranslation(Vector3(50.0f, 0.0f, 0.0f));
 }
 
 void SpriteModel::Draw()
 {
+	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glUseProgram(m_shaderInfo.programID);
 
 	//enable vertex buff to position in shader
@@ -140,6 +151,11 @@ void SpriteModel::Draw()
 	glEnableVertexAttribArray(m_shaderInfo.a_UV);
 	glVertexAttribPointer(m_shaderInfo.a_UV, 2, GL_FLOAT, GL_FALSE, sizeof(Vector2), 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//normal
+	glBindBuffer(GL_ARRAY_BUFFER, m_bufferIndex.nboId);
+	glEnableVertexAttribArray(m_shaderInfo.a_Normal);
+	glVertexAttribPointer(m_shaderInfo.a_Normal, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//texture
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_bufferIndex.textureId);
@@ -149,19 +165,53 @@ void SpriteModel::Draw()
 	//worldObj.SetRotationY(Angle);
 
 	glUniformMatrix4fv(m_shaderInfo.u_WVP, 1, false, WVPMatrix.getDataMembers());
+	glUniform4f(m_shaderInfo.a_PosW, m_Position.x, m_Position.y, m_Position.z, 1.0f); //this obj be place at 0.0
+	glUniform4f(m_shaderInfo.u_CameraPosition, myCamera.m_Vec3Position.x, myCamera.m_Vec3Position.y, myCamera.m_Vec3Position.z, 1.0f);
 
 	//bind index then draw
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bufferIndex.iboId);
 	//glDrawElements(GL_LINES, m_iNumIndices, GL_UNSIGNED_INT, 0);
 	glDrawElements(GL_TRIANGLES, m_iNumIndices, GL_UNSIGNED_INT, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void SpriteModel::Update(float dt)
 {
-	Angle += (dt/2);
-	Matrix mat4; mat4.SetRotationY(Angle);
-	WVPMatrix = myCamera.getWVPMatrix(mat4);
+	if(!m_bPause)
+		Angle += (dt/2);
+	Matrix matRot;
+	matRot.SetRotationY(Angle);
+	Matrix matT;
+	matT.SetTranslation(m_Position);
+	WorldObj = matRot*matT;
+	WVPMatrix = myCamera.getWVPMatrix(WorldObj);
+}
+
+void SpriteModel::SetPosition(Vector3 position)
+{
+	Matrix mat;
+	mat.SetTranslation(position);
+	m_Position = position;
+}
+
+bool SpriteModel::keyDown(unsigned char key, bool bIsPressed)
+{
+	switch(key)
+	{
+	case 32://space
+		if(bIsPressed)
+			m_bPause = m_bPause? false:true;
+		break;
+	default:
+		break;
+	}
+
+	printf("%pause: %d", m_bPause);
+
+	return false;
 }
 
 bool SpriteModel::ClearModelData()
@@ -188,6 +238,16 @@ Vector3 * SpriteModel::GetVertexModel()
 	return res;
 }
 
+Vector3* SpriteModel::GetNormalVector()
+{
+	Vector3* res = new Vector3[m_iNumVertices];
+	for(int i = 0; i<m_iNumVertices; i++)
+	{
+		res[i] = m_vertexv5ArrVertices[i].Normal;
+	}
+
+	return res;
+}
 
 index * SpriteModel::GetIndicesModel()
 {
