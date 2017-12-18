@@ -39,6 +39,8 @@ Vector3* vertextBuff;
 index* indiceBuff;
 Vector2* uvBuff;
 
+Vector4 posLight = Vector4(10.0f, 10.0f, 10.0f, 1.0f);
+
 
 int Init ( ESContext *esContext )
 {
@@ -48,8 +50,8 @@ int Init ( ESContext *esContext )
 	int resultFire = myFireShader.Init("../Resources/Shaders/FireSample.vs", "../Resources/Shaders/FireSample.fs");
 	int resultLighted = myShadersLighted.Init("../Resources/Shaders/ModelsLighted.vs", "../Resources/Shaders/ModelsLighted.fs");
 
-	mySprite.Init("../../NewResourcesPacket/Models/witch.nfg", myShaders.GetShaderInfo());
-	mySpriteLighted.Init("../../NewResourcesPacket/Models/witch.nfg", myShadersLighted.GetShaderInfo());
+	mySprite.Init("../../NewResourcesPacket/Models/Croco.nfg", myShaders.GetShaderInfo());
+	mySpriteLighted.Init("../../NewResourcesPacket/Models/Croco.nfg", myShadersLighted.GetShaderInfo());
 	//mySprite.Init("../../NewResourcesPacket/Models/Marine.nfg", myShaders.GetShaderInfo());
 	//mySprite.Init("../../NewResourcesPacket/Models/Woman1.nfg", myShaders.GetShaderInfo());
 	myFireEffect.Init("../../NewResourcesPacket/Models/fire.nfg", myFireShader.GetShaderInfo());
@@ -72,8 +74,12 @@ void Draw ( ESContext *esContext )
 	mySprite.Draw();
 	myFireEffect.Draw();
 
+	Vector4 worldPos =  posLight*myCamera.calculateWorldMatrix();
+
 	glUseProgram(myShadersLighted.program);
-	glUniform3f(mySpriteLighted.m_shaderInfo.u_LightDirection, 10.0f, 80.0f, 10.0f);
+	//glUniform3f(mySpriteLighted.m_shaderInfo.u_LightDirection, worldPos.x, worldPos.y, worldPos.z);
+	glUniform3f(mySpriteLighted.m_shaderInfo.u_LightDirection, 10.0f, 10.0f, 10.0f);
+	glUniformMatrix4fv(mySpriteLighted.m_shaderInfo.u_World, 1, false, myCamera.calculateWorldMatrix().getDataMembers());
 
 	mySpriteLighted.Draw();
 
@@ -99,7 +105,6 @@ void Update ( ESContext *esContext, float deltaTime )
 
 void Key ( ESContext *esContext, unsigned char key, bool bIsPressed)
 {
-	bool test;
 	switch (key)
 	{
 		//movement

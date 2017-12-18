@@ -25,6 +25,14 @@ struct imageData
 	int h;
 	int bpp;
 	char* data;
+public:
+	imageData()
+	{
+		w = 0;
+		h = 0;
+		bpp = 0;
+		data = 0;
+	}
 };
 
 struct bufferIndex

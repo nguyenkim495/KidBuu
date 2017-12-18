@@ -14,12 +14,13 @@ attribute	vec3	a_normal;
 varying		vec3	v_normal;
 
 uniform	mat4	u_WVP; //world view projection
+uniform mat4	u_World;
 
 void main()
 {
 	vec4 posL = vec4(a_posL, 1.0);
 	v_uv = a_uv;
-    v_posW = a_posW;
+    v_posW = a_posW*u_World;
 	v_normal = a_normal;
 	gl_Position = u_WVP * posL;
 }

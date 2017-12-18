@@ -52,7 +52,6 @@ bool SpriteModel::LoadModelFile(char *fileName)
 	m_indiceFormatArrIndices = new index[m_iNumIndices];
 	for(int i = 0; i<m_iNumIndices; i++)
 	{
-		int temp;
 		fscanf(pFile, "   %*d.    %d,    %d,    %d\n",
 			&m_indiceFormatArrIndices[i].first, &m_indiceFormatArrIndices[i].second, &m_indiceFormatArrIndices[i].third);
 	}
@@ -281,6 +280,8 @@ imageData* SpriteModel::GetImageData()
 	m_imageData[0] = new imageData();
 	m_imageData[0]->data = new char[w*h*bpp/8];
 	LoadTGA(m_cFileTextureName[0], m_imageData[0]->data, &m_imageData[0]->w, &m_imageData[0]->h, &m_imageData[0]->bpp);
+
+	return m_imageData[0];
 }
 
 void SpriteModel::Release()

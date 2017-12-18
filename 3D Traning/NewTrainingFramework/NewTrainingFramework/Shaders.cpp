@@ -24,6 +24,7 @@ int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 	uvAttribute = glGetAttribLocation(program, "a_uv");
 	samplerTextUniform = glGetUniformLocation(program, "u_s_Texture");
 	WVPMatrix = glGetUniformLocation(program, "u_WVP");
+	m_ShaderInfo.u_World = glGetUniformLocation(program, "u_World");
 
 	m_ShaderInfo.Init();
 	////adding a new shaderInfo for all sprite
