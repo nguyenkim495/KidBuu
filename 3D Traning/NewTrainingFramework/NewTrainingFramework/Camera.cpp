@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "Globals.h"
 #include <math.h>
+#include <cmath>
 
 Camera::Camera()
 {
@@ -35,7 +36,7 @@ bool Camera::moveCamera(Direction direc)
 		deltaMove.x = -m_fSpeed/2;
 		break;
 	case RIGHT:
-		deltaMove.x = abs(m_fSpeed/2);
+		deltaMove.x = fabs(m_fSpeed/2);
 		break;
 	case UP:
 		break;
