@@ -34,3 +34,8 @@ NrIndices: 54
   15.   10,   14,    9
   16.   14,   10,   15
   17.   11,   15,   10
+  NrTexture: ../../NewResourcesPacket/Textures/fire3.tga
+  NrDispl_Texture: ../../NewResourcesPacket/Textures/DisplacementMap.tga
+  NrMask_Texture: ../../NewResourcesPacket/Textures/fire_mask.tga
+
+  

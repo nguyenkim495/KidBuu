@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "SpriteModel.h"
 #include "ParticleEffects.h"
+#include "Postprocessing.h"
 
 
 GLuint vboId;//vertex
@@ -27,12 +28,15 @@ GLfloat globalAngle;
 Shaders myShaders;
 Shaders myShadersLighted;
 Shaders myFireShader;
+Shaders myGraysalcePostprocessing;
 
 SpriteModel mySprite;
 SpriteModel mySpriteLighted;
 ParticleEffect myFireEffect;
+Postprocessing myPostprocessing;
 
 Matrix WorldObj;
+
 
 
 Vector3* vertextBuff;
@@ -49,13 +53,17 @@ int Init ( ESContext *esContext )
 	int result = myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
 	int resultFire = myFireShader.Init("../Resources/Shaders/FireSample.vs", "../Resources/Shaders/FireSample.fs");
 	int resultLighted = myShadersLighted.Init("../Resources/Shaders/ModelsLighted.vs", "../Resources/Shaders/ModelsLighted.fs");
+	myGraysalcePostprocessing.Init("../Resources/Shaders/Postprocessing.vs", "../Resources/Shaders/Postprocessing.fs");
 
 	mySprite.Init("../../NewResourcesPacket/Models/Croco.nfg", myShaders.GetShaderInfo());
 	mySpriteLighted.Init("../../NewResourcesPacket/Models/Croco.nfg", myShadersLighted.GetShaderInfo());
 	//mySprite.Init("../../NewResourcesPacket/Models/Marine.nfg", myShaders.GetShaderInfo());
 	//mySprite.Init("../../NewResourcesPacket/Models/Woman1.nfg", myShaders.GetShaderInfo());
 	myFireEffect.Init("../../NewResourcesPacket/Models/fire.nfg", myFireShader.GetShaderInfo());
+	myPostprocessing.Init(myGraysalcePostprocessing.GetShaderInfo());
 	
+	
+	//myFireEffect.SetPosition(Vector3(300, 0,0));
 	mySprite.SetPosition(Vector3(300, 0, 0));
 	mySpriteLighted.SetPosition(Vector3(-300, 0, 0));
 
@@ -68,21 +76,21 @@ void Draw ( ESContext *esContext )
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-	
 
-
+	//myPostprocessing.PreparePostProcessBuffer();
+	//draw all thing here
 	mySprite.Draw();
 	myFireEffect.Draw();
 
 	Vector4 worldPos =  posLight*myCamera.calculateWorldMatrix();
-
 	glUseProgram(myShadersLighted.program);
 	//glUniform3f(mySpriteLighted.m_shaderInfo.u_LightDirection, worldPos.x, worldPos.y, worldPos.z);
 	glUniform3f(mySpriteLighted.m_shaderInfo.u_LightDirection, 10.0f, 10.0f, 10.0f);
 	glUniformMatrix4fv(mySpriteLighted.m_shaderInfo.u_World, 1, false, myCamera.calculateWorldMatrix().getDataMembers());
-
 	mySpriteLighted.Draw();
 
+	//myPostprocessing.DonePostProcessBuffer();
+	//myPostprocessing.Draw();
 
 	eglSwapBuffers ( esContext->eglDisplay, esContext->eglSurface );
 

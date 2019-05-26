@@ -3,6 +3,7 @@
 #include <../Utilities/TGA.h>
 #include <cstdio>
 #include "Camera.h"
+#include <string>
 
 #define PRE_LOAD "../.."
 
@@ -46,22 +47,28 @@ bool SpriteModel::LoadModelFile(char *fileName)
 			);
 
 	}
+
+	/*std::string buff = "1231231231231232";
+	buff.erase(0,15);
+
+	sscanf_s(buff.c_str(), "%s");*/
+
 	//indices
 	//int numberIndices;
 	fscanf(pFile, "NrIndices: %d\n", &m_iNumIndices);
 	m_indiceFormatArrIndices = new index[m_iNumIndices];
-	for(int i = 0; i<m_iNumIndices; i++)
+	for(int i = 0; i<m_iNumIndices/3; i++)
 	{
 		fscanf(pFile, "   %*d.    %d,    %d,    %d\n",
 			&m_indiceFormatArrIndices[i].first, &m_indiceFormatArrIndices[i].second, &m_indiceFormatArrIndices[i].third);
 	}
 
 	m_cFileTextureName[0] = new char[100];
-	m_cFileTextureName[1] = new char[100];
-	m_cFileTextureName[2] = new char[100];
 	fscanf(pFile, "NrTexture: %s\n", m_cFileTextureName[0]);
 	if(!feof(pFile))
 	{
+		m_cFileTextureName[1] = new char[100];
+		m_cFileTextureName[2] = new char[100];
 		fscanf(pFile, "NrDispl_Texture: %s\n", m_cFileTextureName[1]);
 		fscanf(pFile, "NrMask_Texture: %s\n", m_cFileTextureName[2]);
 	}
